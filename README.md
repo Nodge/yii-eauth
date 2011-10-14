@@ -1,14 +1,15 @@
+Yii EAuth extension
+===================
 
-Introduction
-------------
-EAuth class allows to authenticate users by the OpenID and OAuth providers.
+EAuth extension allows to authenticate users by the OpenID and OAuth providers.
+
 Supported providers out of box:
 * OpenID: Google, Yandex;
 * OAuth: Twitter;
 * OAuth 2.0: Google, Facebook, VKontakte, Mail.ru.
 
-###Resources
-* [Yii EAuth](https://code.google.com/p/yii-eauth/)
+### Resources
+* [Yii EAuth](/nodge/yii-eauth/)
 * [Yii Framework](http://yiiframework.com/)
 * [OpenID](http://openid.net/)
 * [OAuth](http://oauth.net/)
@@ -17,30 +18,30 @@ Supported providers out of box:
 * [EOAuth extension](http://www.yiiframework.com/extension/eoauth)
 
 
-###Requirements
+### Requirements
 * Yii 1.1 or above
 * PHP curl extension
 * [loid extension](http://www.yiiframework.com/extension/loid)
 * [EOAuth extension](http://www.yiiframework.com/extension/eoauth)
 
 
-Documentation
--------------
+## Documentation
 
-###Installation
+### Installation
+
 * Install loid and EOAuth extensions
 * Extract the release file under `protected/extensions`
 * In your `protected/config/main.php`, add the following:
-~~~
-[php]
 
+```php
+...
 	'import'=>array(
 		'ext.eoauth.*',
 		'ext.eoauth.lib.*',
 		'ext.lightopenid.*',
 		'ext.eauth.services.*',
 	),
-
+...
 	'components'=>array(
 		'loid' => array(
 			'class' => 'ext.lightopenid.loid',
@@ -77,17 +78,17 @@ Documentation
 				),
 			),
 		),
+		...
 	),
-	
-~~~
+...
+```
 
 
-###Usage
+### Usage
+
 The user identity:
 
-~~~
-[php]
-	
+```php
 	<?php
 
 	class ServiceUserIdentity extends UserIdentity {
@@ -125,15 +126,11 @@ The user identity:
 			return !$this->errorCode;
 		}
 	}
-	
-~~~
-
+```
 
 The action:
 
-~~~
-[php]
-
+```php
 	public function actionLogin() {
 		$service = Yii::app()->request->getQuery('service');
 		if (isset($service) in_array($service, array())) {
@@ -163,57 +160,20 @@ The action:
 		
 		// default action code...
 	}
-
-~~~
-
+```
 
 The view:
 
-~~~
-[php]
-
+```php
 	<h2>Do you already have an account on one of these sites? Click the logo to log in with it here:</h2>
 	<?php 
 		Yii::app()->eauth->renderWidget();
 	?>
+```
 
-~~~
 
+## License
 
-License
----------
 Some time ago I developed this extension for [LiStick.ru](http://listick.ru) and I still support the extension.
 
 The extension was released under the [New BSD License](http://www.opensource.org/licenses/bsd-license.php), so you'll find the latest version on [Google code](https://code.google.com/p/yii-eauth/).
-
-
-Change Log
----------
-
-### Version ? (?)
-* MailruOAuthService::makeSignedRequest() now fully compatible with the basic method.
-* Fixed error when MailruOAuthService::getAccessToken() returns an empty token.
-* Fixed: service IDs in the configuration is no longer associated with the names of services.
-* Fixed MailruOAuthService::getTokenUrl() method to be fully compatible with the basic method.
-* Added Google OAuth 2.0 provider, updated css file of the widget.
-
-### Version 1.1.2 (08.10.2011)
-* Fixed fetchJsonError() method in OAuth providers.
-* Fixed examples of custom classes for OAuth 2.0 providers.
-* Updated EAuth::redirect() method to support the closing popup window without $_GET['js'] variable.
-
-### Version 1.1 (07.10.2011)
-* Fixed a wrong call urldecode instead of urldecode in the FacebookOAuthService.php.
-* Fixed exception rethrowing: removed unnecessary $e->getPrevious() call.
-* Fixed: the call $service->getItemAttributes() returns an empty array.
-* Removed checking $_GET['error_reason'] in EOAuth2Service.php.
-* EAuthServiсeBase is an abstract class now.
-* Updated curl requests api.
-* Updated OAuth Service Providers.
-* Method getItemAttributes() renamed to getAttributes().
-* Added methods to work with a authorization session (Methods: getStateKeyPrefix, setState, hasState, getState).
-* Added Mail.ru OAuth provider, updated css file of the widget.
-* Added getters support for service attributes.
-
-### Version 1.0 (02.10.2011)
-* Initial release.
