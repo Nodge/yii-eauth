@@ -1,6 +1,9 @@
 Yii EAuth Change Log
 ====================
 
+### In progress...
+* Added handling for denied callback in the TwitterOAuthService.
+
 ### Version 1.1.3 (14.10.2011)
 * MailruOAuthService::makeSignedRequest() now fully compatible with the basic method.
 * Fixed error when MailruOAuthService::getAccessToken() returns an empty token.
