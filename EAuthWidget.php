@@ -30,9 +30,9 @@ class EAuthWidget extends CWidget {
 	public $popup = null;
 	
 	/**
-	 * @var string the action to use for dialog destination.
+	 * @var string the action to use for dialog destination. Default: the current route.
 	 */
-	public $action = 'site/login';
+	public $action = null;
 	
 	/**
 	 * @var mixed the widget mode. Default to "login".
@@ -43,11 +43,19 @@ class EAuthWidget extends CWidget {
 	 * Executes the widget.
 	 */
     public function run() {
+		// EAuth component
 		$component = Yii::app()->{$this->component};
+		
+		// Some default properties from component configuration
 		if (!isset($this->services))
 			$this->services = $component->getServices();
 		if (!isset($this->popup))
 			$this->popup = $component->popup;
+		
+		// Set the current route, if it is not set.
+		if (!isset($this->action))
+			$this->action = Yii::app()->urlManager->parseUrl(Yii::app()->request);
+		
 		$this->registerAssets();
 		$this->render('auth', array(
 			'id' => $this->getId(),

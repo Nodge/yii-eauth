@@ -144,7 +144,7 @@ class ServiceUserIdentity extends UserIdentity {
 ...
 	public function actionLogin() {
 		$service = Yii::app()->request->getQuery('service');
-		if (isset($service) in_array($service, array())) {
+		if (isset($service)) {
 			$authIdentity = Yii::app()->eauth->getIdentity($service);
 			$authIdentity->redirectUrl = Yii::app()->user->returnUrl;
 			$authIdentity->cancelUrl = $this->createAbsoluteUrl('site/login');
@@ -178,7 +178,7 @@ class ServiceUserIdentity extends UserIdentity {
 ```php
 <h2>Нажмите на иконку для входа через один из сайтов:</h2>
 <?php 
-	$this->widget('ext.eauth.EAuthWidget');
+	$this->widget('ext.eauth.EAuthWidget', array('action' => 'site/login'));
 ?>
 ```
 
