@@ -33,12 +33,7 @@ class EAuthWidget extends CWidget {
 	 * @var string the action to use for dialog destination. Default: the current route.
 	 */
 	public $action = null;
-	
-	/**
-	 * @var mixed the widget mode. Default to "login".
-	 */
-	public $mode = 'login';
-	
+		
 	/**
 	 * Executes the widget.
 	 */
@@ -60,7 +55,6 @@ class EAuthWidget extends CWidget {
 		$this->render('auth', array(
 			'id' => $this->getId(),
 			'services' => $this->services,
-			'mode' => $this->mode,
 			'action' => $this->action,
 		));
     }
