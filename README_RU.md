@@ -64,6 +64,12 @@ Yii EAuth extension
 					'key' => '...',
 					'secret' => '...',
 				),
+				'google_oauth' => array(
+					'class' => 'GoogleOAuthService',
+					'client_id' => '...',
+					'client_secret' => '...',
+					'title' => 'Google (OAuth)',
+				),
 				'facebook' => array(
 					'class' => 'FacebookOAuthService',
 					'client_id' => '...',
@@ -172,7 +178,7 @@ class ServiceUserIdentity extends UserIdentity {
 ```php
 <h2>Нажмите на иконку для входа через один из сайтов:</h2>
 <?php 
-	Yii::app()->eauth->renderWidget();
+	$this->widget('ext.eauth.EAuthWidget');
 ?>
 ```
 

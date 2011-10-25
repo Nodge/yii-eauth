@@ -64,6 +64,12 @@ Supported providers out of box:
 					'key' => '...',
 					'secret' => '...',
 				),
+				'google_oauth' => array(
+					'class' => 'GoogleOAuthService',
+					'client_id' => '...',
+					'client_secret' => '...',
+					'title' => 'Google (OAuth)',
+				),
 				'facebook' => array(
 					'class' => 'FacebookOAuthService',
 					'client_id' => '...',
@@ -172,7 +178,7 @@ class ServiceUserIdentity extends UserIdentity {
 ```php
 <h2>Do you already have an account on one of these sites? Click the logo to log in with it here:</h2>
 <?php 
-	Yii::app()->eauth->renderWidget();
+	$this->widget('ext.eauth.EAuthWidget');
 ?>
 ```
 

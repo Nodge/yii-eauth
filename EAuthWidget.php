@@ -14,15 +14,20 @@
 class EAuthWidget extends CWidget {
 		
 	/**
-	 * @var mixed the widget mode. Default to "login".
+	 * @var string EAuth component name.
 	 */
-	public $mode = 'login';
+	public $component = 'eauth';
 	
 	/**
 	 * @var array the services.
 	 * @see EAuth::getServices() 
 	 */
-	public $services = array();
+	public $services = null;
+	
+	/**
+	 * @var boolean whether to use popup window for authorization dialog. Javascript required.
+	 */
+	public $popup = null;
 	
 	/**
 	 * @var string the action to use for dialog destination.
@@ -30,23 +35,49 @@ class EAuthWidget extends CWidget {
 	public $action = 'site/login';
 	
 	/**
-	 * @var boolean whether to use popup window for authorization dialog. Javascript required.
+	 * @var mixed the widget mode. Default to "login".
 	 */
-	public $popup = true;
+	public $mode = 'login';
 	
 	/**
 	 * Executes the widget.
 	 */
     public function run() {
-		$assets_path = dirname(__FILE__).DIRECTORY_SEPARATOR.'assets';
-		
+		$component = Yii::app()->{$this->component};
+		if (!isset($this->services))
+			$this->services = $component->getServices();
+		if (!isset($this->popup))
+			$this->popup = $component->popup;
+		$this->registerAssets();
 		$this->render('auth', array(
 			'id' => $this->getId(),
 			'services' => $this->services,
 			'mode' => $this->mode,
 			'action' => $this->action,
-			'popup' => $this->popup,
-			'assets_path' => $assets_path,
 		));
     }
+	
+	/**
+	 * Register CSS and JS files.
+	 */
+	protected function registerAssets() {
+		$cs = Yii::app()->clientScript;
+		$cs->registerCoreScript('jquery');
+
+		$assets_path = dirname(__FILE__).DIRECTORY_SEPARATOR.'assets';
+		$url = Yii::app()->assetManager->publish($assets_path, false, -1, YII_DEBUG);
+		$cs->registerCssFile($url.'/css/auth.css');
+
+		// Open the authorization dilalog in popup window.
+		if ($this->popup) {
+			$cs->registerScriptFile($url.'/js/auth.js', CClientScript::POS_HEAD);
+			$js = '';
+			foreach ($this->services as $name => $service) {
+				$args = $service->jsArguments;
+				$args['id'] = $service->id;
+				$js .= '$(".auth-service.'.$service->id.' a").eauth('.json_encode($args).');'."\n";
+			}
+			$cs->registerScript('eauth-services', $js, CClientScript::POS_READY);
+		}
+	}
 }
