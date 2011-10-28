@@ -1,3 +1,7 @@
+/* Height hack for float wrappers */
+.services {
+    overflow:auto;
+}
 
 .auth-icon {
     display: block;
@@ -8,43 +12,45 @@
 
 .auth-icon.google, 
 .auth-icon.google_oauth { background-position: 0 -34px;  }
-.auth-icon.twitter		{ background-position: 0 -68px;  }
+.auth-icon.twitter    	{ background-position: 0 -68px;  }
 .auth-icon.yandex		{ background-position: 0 -102px; }
 .auth-icon.vkontakte	{ background-position: 0 -136px; }
 .auth-icon.facebook		{ background-position: 0 -170px; }
 .auth-icon.mailru		{ background-position: 0 -204px; }
 
-a:hover .auth-icon i,
-a.auth-icon:hover  i,
-a:focus .auth-icon i,
-a.auth-icon:focus  i {
+:hover .auth-icon i,
+.auth-icon:hover  i,
+:focus .auth-icon i,
+.auth-icon:focus  i {
     display: block;
     width: 32px;
     height: 32px;
     background: url("../images/auth.png") 0 0 no-repeat;
 }
 
-ul.auth-services {
+.auth-services {
     margin: 0 0 1em;
     list-style: none;
+	/* Height hack for float wrappers */
+    overflow:auto;
 }
     
-ul.auth-services li {
+.auth-service {
     float: left;
     margin: 0 1em 0 0;
 }
       
-ul.auth-services li a {
+.auth-services .auth-service .auth-link {
     display: block;
     width: 58px;
     /*padding: 0 0.4em;*/
 }
 
-ul.auth-services li a .auth-icon {
+.auth-service .auth-link .auth-icon {
     margin: 0 auto;
 }
           
-ul.auth-services li a .auth-title {
+.auth-service .auth-link .auth-title {
     display: block;
     margin-top: 0.4em;
     text-align: center;
