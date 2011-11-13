@@ -1,7 +1,7 @@
 Yii EAuth Change Log
 ====================
 
-### In progress...
+### Version 1.1.4 (13.11.2011)
 * Added handling for denied callback in the TwitterOAuthService.
 * Fixed a redirect page for disabled javascript.
 * EAuthWidget been rewritten for use with CController->widget() instead of EAuth->renderWidget().
