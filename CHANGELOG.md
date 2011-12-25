@@ -3,6 +3,7 @@ Yii EAuth Change Log
 
 ### In progress...
 * Fixed infinite loop when calling getAttrbiutes from fetchAttributes inside a provider class.
+* Changed url for the Yandex OpenID.
 
 ### Version 1.1.4 (13.11.2011)
 * Added handling for denied callback in the TwitterOAuthService.

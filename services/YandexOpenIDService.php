@@ -20,7 +20,7 @@ class YandexOpenIDService extends EOpenIDService {
 	protected $type = 'OpenID';
 	protected $jsArguments = array('popup' => array('width' => 900, 'height' => 550));
 	
-	protected $url = 'http://openid.yandex.ru/trusted_request/';
+	protected $url = 'http://openid.yandex.ru/';
 	protected $requiredAttributes = array(
 		'name' => array('fullname', 'namePerson'),
 		//'username' => array('nickname', 'namePerson/friendly'),
