@@ -7,7 +7,7 @@ Yii EAuth extension
 
 * OpenID: Google, Яндекс;
 * OAuth: Twitter;
-* OAuth 2.0: Google, Facebook, ВКонтакте, Mail.ru.
+* OAuth 2.0: Google, Facebook, ВКонтакте, Mail.ru, Мой круг, Одноклассники.
 
 
 ### Ссылки
@@ -84,6 +84,18 @@ Yii EAuth extension
 					'class' => 'MailruOAuthService',
 					'client_id' => '...',
 					'client_secret' => '...',
+				),
+				'moikrug' => array(
+					'class' => 'MoikrugOAuthService',
+					'client_id' => '...',
+					'client_secret' => '...',
+				),
+				'odnoklassniki' => array(
+					'class' => 'OdnoklassnikiOAuthService',
+					'client_id' => '...',
+					'client_secret' => '...',
+					'client_public' => '...',
+					'title' => 'Одноклас.',
 				),
 			),
 		),

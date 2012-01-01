@@ -7,7 +7,7 @@ Supported providers out of box:
 
 * OpenID: Google, Yandex;
 * OAuth: Twitter;
-* OAuth 2.0: Google, Facebook, VKontakte, Mail.ru.
+* OAuth 2.0: Google, Facebook, VKontakte, Mail.ru, MoiKrug, Odnoklassniki.
 
 
 ### Resources
