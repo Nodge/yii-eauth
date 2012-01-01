@@ -2,6 +2,7 @@ Yii EAuth Change Log
 ====================
 
 ### In progress...
+* Added ability to write in the log of unsuccessful requests in the EAuthServiceBase::makeRequest().
 * Fixed infinite loop when calling getAttrbiutes from fetchAttributes inside a provider class.
 * Changed url for the Yandex OpenID.
 
