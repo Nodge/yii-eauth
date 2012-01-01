@@ -2,8 +2,10 @@ Yii EAuth Change Log
 ====================
 
 ### In progress...
+* Added MoiKrug OAuth provider.
 * Added ability to write in the log of unsuccessful requests in the EAuthServiceBase::makeRequest().
 * Fixed infinite loop when calling getAttrbiutes from fetchAttributes inside a provider class.
+* Small fixes in the css of the widget.
 * Changed url for the Yandex OpenID.
 
 ### Version 1.1.4 (13.11.2011)

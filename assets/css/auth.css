@@ -17,11 +17,10 @@
 .auth-icon.vkontakte	{ background-position: 0 -136px; }
 .auth-icon.facebook		{ background-position: 0 -170px; }
 .auth-icon.mailru		{ background-position: 0 -204px; }
+.auth-icon.moikrug		{ background-position: 0 -238px; }
 
-:hover .auth-icon i,
-.auth-icon:hover  i,
-:focus .auth-icon i,
-.auth-icon:focus  i {
+.auth-link:hover .auth-icon i,
+.auth-link:focus .auth-icon i {
     display: block;
     width: 32px;
     height: 32px;
