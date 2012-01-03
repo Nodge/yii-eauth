@@ -25,7 +25,7 @@ The implementation of the authorization on your own server has several advantage
 * Set up a list of supported services, customize the appearance of the widget, use the popup window without closing your application.
 	
 
-### Расширение содержит:
+### Extension includes:
 
 * The component that contains utility functions.
 * A widget that displays a list of services in the form of icons and allowing authorization in the popup window.
