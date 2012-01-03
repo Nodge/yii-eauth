@@ -55,27 +55,28 @@ abstract class EOAuth2Service extends EAuthServiceBase implements IAuthService {
 			return false;
 		}
 		
-		//Получаем "access_token" и сохр. в сессионной переменной
+		// Get the access_token and save them to the session.
 		if (isset($_GET['code'])) {
             $code = $_GET['code'];
 			$token = $this->getAccessToken($code);
 			if (isset($token)) {
-				$this->setState('auth_token', $token);
-				$this->access_token = $token;
+				$this->saveAccessToken($token);
 				$this->authenticated = true;
 			}
         }
-		//Получаем "code"
-		else if (!$this->hasState('auth_token')) {
+		// Redirect to the authorization page
+		else if (!$this->restoreAccessToken()) {
 			// Use the URL of the current page as the callback URL.
-			$server = Yii::app()->request->getHostInfo();
-			$path = Yii::app()->request->getUrl();
-			$url = $this->getCodeUrl($server.$path);
+			if (isset($_GET['redirect_uri'])) {
+				$redirect_uri = $_GET['redirect_uri'];
+			}
+			else {
+				$server = Yii::app()->request->getHostInfo();
+				$path = Yii::app()->request->getUrl();
+				$redirect_uri = $server.$path;
+			}
+			$url = $this->getCodeUrl($redirect_uri);
 			Yii::app()->request->redirect($url);
-		}
-		else { 	
-			$this->access_token = $this->getState('auth_token');
-			$this->authenticated = true;
 		}
 		
 		return $this->getIsAuthenticated();
@@ -105,6 +106,32 @@ abstract class EOAuth2Service extends EAuthServiceBase implements IAuthService {
 	 */
 	protected function getAccessToken($code) {
 		return $this->makeRequest($this->getTokenUrl($code));
+	}
+	
+	/**
+	 * Save access token to the session.
+	 * @param string $token access token.
+	 */
+	protected function saveAccessToken($token) {
+		$this->setState('auth_token', $token);
+		$this->access_token = $token;
+	}
+	
+	/**
+	 * Restore access token from the session.
+	 * @return boolean whether the access token was successfuly restored.
+	 */
+	protected function restoreAccessToken() {
+		if ($this->hasState('auth_token') && $this->getState('expires', 0) > time()) {
+			$this->access_token = $this->getState('auth_token');
+			$this->authenticated = true;
+			return true;
+		}
+		else {
+			$this->access_token = null;
+			$this->authenticated = false;
+			return false;
+		}
 	}
 	
 	/**

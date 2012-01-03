@@ -3,7 +3,6 @@
  * MoikrugOAuthService class file.
  *
  * Register application: https://oauth.yandex.ru/client/my
- * Example callback for the registration: http://example.com/index.php?r=site/login&service=moikrug&js
  * 
  * @author Maxim Zemskov <nodge@yandex.ru>
  * @link http://code.google.com/p/yii-eauth/
@@ -21,7 +20,7 @@ class MoikrugOAuthService extends EOAuth2Service {
 	protected $name = 'moikrug';
 	protected $title = 'Мой круг';
 	protected $type = 'OAuth';
-	protected $jsArguments = array('popup' => array('width' => 400, 'height' => 350));
+	protected $jsArguments = array('popup' => array('width' => 500, 'height' => 450));
 	
 	protected $client_id = '';
 	protected $client_secret = '';
@@ -42,6 +41,13 @@ class MoikrugOAuthService extends EOAuth2Service {
 		$this->attributes['gender'] = ($info['gender'] == 'male') ? 'M' : 'F';
 	}
 	
+	protected function getCodeUrl($redirect_uri) {
+		$url = parent::getCodeUrl($redirect_uri);
+		if (isset($_GET['js']))
+			$url .= '&display=popup';
+		return $url;
+	}
+	
 	protected function getTokenUrl($code) {
 		return $this->providerOptions['access_token'];
 	}
@@ -53,15 +59,17 @@ class MoikrugOAuthService extends EOAuth2Service {
 			'client_id' => $this->client_id,
 			'client_secret' => $this->client_secret,
 		);
-		$result = $this->makeRequest($this->getTokenUrl($code), array('data' => $params));
-		return $result->access_token;
+		return $this->makeRequest($this->getTokenUrl($code), array('data' => $params));
 	}
 	
-	protected function getCodeUrl($redirect_uri) {
-		$url = parent::getCodeUrl($redirect_uri);
-		if (isset($_GET['js']))
-			$url .= '&display=popup';
-		return $url;
+	/**
+	 * Save access token to the session.
+	 * @param stdClass $token access token array.
+	 */
+	protected function saveAccessToken($token) {
+		$this->setState('auth_token', $token->access_token);
+		$this->setState('expires', time() + (isset($token->expires_in) ? $token->expires_in : 365*86400) - 60);
+		$this->access_token = $token->access_token;
 	}
 	
 	/**

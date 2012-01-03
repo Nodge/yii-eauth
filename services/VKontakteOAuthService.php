@@ -2,6 +2,8 @@
 /**
  * VKontakteOAuthService class file.
  *
+ * Register application: http://vkontakte.ru/editapp?act=create&site=1
+ * 
  * @author Maxim Zemskov <nodge@yandex.ru>
  * @link http://code.google.com/p/yii-eauth/
  * @license http://www.opensource.org/licenses/bsd-license.php
@@ -18,7 +20,7 @@ class VKontakteOAuthService extends EOAuth2Service {
 	protected $name = 'vkontakte';
 	protected $title = 'ВКонтакте';
 	protected $type = 'OAuth';
-	protected $jsArguments = array('popup' => array('width' => 824, 'height' => 500));
+	protected $jsArguments = array('popup' => array('width' => 585, 'height' => 350));
 
 	protected $client_id = '';
 	protected $client_secret = '';
@@ -28,10 +30,12 @@ class VKontakteOAuthService extends EOAuth2Service {
 		'access_token' => 'https://api.vkontakte.ru/oauth/access_token',
 	);
 	
+	protected $uid = null;
+	
 	protected function fetchAttributes() {
 		$info = (array)$this->makeSignedRequest('https://api.vkontakte.ru/method/getProfiles', array(
 			'query' => array(
-				'uids' => $this->getUid(),
+				'uids' => $this->uid,
 				'fields' => '', // uid, first_name and last_name is always available
 				//'fields' => 'nickname, sex, bdate, city, country, timezone, photo, photo_medium, photo_big, photo_rec',
 			),
@@ -61,25 +65,45 @@ class VKontakteOAuthService extends EOAuth2Service {
 		$this->attributes['photo_rec'] = $info->photo_rec;*/
 	}
 
-	protected function getUid() {
-		if (!$this->hasState('uid'))
-			throw new EAuthException('Unable to get vkontakte user id.', 500);
-		return $this->getState('uid');
-	}
-	
-	protected function getAccessToken($code) {
-		$result = parent::getAccessToken($code);
-		$this->setState('uid', $result->user_id);
-		return $result->access_token;
-	}
-	
-	/*protected function getCodeUrl($redirect_uri) {
+	/**
+	 * Returns the url to request to get OAuth2 code.
+	 * @param string $redirect_uri url to redirect after user confirmation.
+	 * @return string url to request. 
+	 */
+	protected function getCodeUrl($redirect_uri) {
 		$url = parent::getCodeUrl($redirect_uri);
 		if (isset($_GET['js']))
 			$url .= '&display=popup';
 		return $url;
-	}*/
+	}
 	
+	/**
+	 * Save access token to the session.
+	 * @param stdClass $token access token object.
+	 */
+	protected function saveAccessToken($token) {
+		$this->setState('auth_token', $token->access_token);
+		$this->setState('uid', $token->user_id);
+		$this->setState('expires', time() + $token->expires_in - 60);
+		$this->uid = $token->user_id;
+		$this->access_token = $token->access_token;
+	}
+	
+	/**
+	 * Restore access token from the session.
+	 * @return boolean whether the access token was successfuly restored.
+	 */
+	protected function restoreAccessToken() {
+		if ($this->hasState('uid') && parent::restoreAccessToken()) {
+			$this->uid = $this->getState('uid');
+			return true;
+		}
+		else {
+			$this->uid = null;
+			return false;
+		}
+	}
+
 	/**
 	 * Returns the error info from json.
 	 * @param stdClass $json the json response.

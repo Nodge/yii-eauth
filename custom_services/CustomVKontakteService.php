@@ -16,7 +16,7 @@ class CustomVKontakteService extends VKontakteOAuthService {
 	protected function fetchAttributes() {
 		$info = (array)$this->makeSignedRequest('https://api.vkontakte.ru/method/getProfiles', array(
 			'query' => array(
-				'uids' => $this->getUid(),
+				'uids' => $this->uid,
 				//'fields' => '', // uid, first_name and last_name is always available
 				'fields' => 'nickname, sex, bdate, city, country, timezone, photo, photo_medium, photo_big, photo_rec',
 			),

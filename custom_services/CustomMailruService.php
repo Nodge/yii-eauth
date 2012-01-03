@@ -14,7 +14,7 @@ class CustomMailruService extends MailruOAuthService {
 	protected function fetchAttributes() {
 		$info = (array)$this->makeSignedRequest('http://www.appsmail.ru/platform/api', array(
 			'query' => array(
-				'uids' => $this->getUid(),
+				'uids' => $this->uid,
 				'method' => 'users.getInfo',
 				'app_id' => $this->client_id,
 			),

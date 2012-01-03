@@ -2,6 +2,8 @@
 /**
  * TwitterOAuthService class file.
  *
+ * Register application: https://dev.twitter.com/apps/new
+ * 
  * @author Maxim Zemskov <nodge@yandex.ru>
  * @link http://code.google.com/p/yii-eauth/
  * @license http://www.opensource.org/licenses/bsd-license.php

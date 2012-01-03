@@ -5,9 +5,12 @@ Yii EAuth Change Log
 * Added MoiKrug OAuth provider.
 * Added Odnoklassniki OAuth provider.
 * Added ability to write in the log of unsuccessful requests in the EAuthServiceBase::makeRequest().
-* Fixed infinite loop when calling getAttrbiutes from fetchAttributes inside a provider class.
-* Small fixes in the css of the widget.
+* Added access_token lifetime handling, #1 closed. Please, check your custom OAuth 2.0 classes!
+* Added links to provider files to register your applications.
 * Changed url for the Yandex OpenID.
+* Fixed infinite loop when calling getAttrbiutes from fetchAttributes inside a provider class.
+* Removed $_GET['js'] from the redirect_uri for the OAuth 2.0 providers, which could cause problems with a callback URL for some providers.
+* Small fixes in the css of the widget.
 
 ### Version 1.1.4 (13.11.2011)
 * Added handling for denied callback in the TwitterOAuthService.

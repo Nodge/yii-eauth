@@ -22,10 +22,13 @@ jQuery(function($) {
 	            if (popup !== undefined)
 	                popup.close();
 
-	            var url = this.href + (this.href.indexOf('?') >= 0 ? '&' : '?') + 'js';
+	            var redirect_uri, url = redirect_uri = this.href;
+				url += (url.indexOf('?') >= 0 ? '&' : '?') + 'redirect_uri=' + encodeURIComponent(redirect_uri);
+				url += '&js';
+				
 	            /*var remember = $(this).parents('.auth-services').parent().find('.auth-services-rememberme');
 	            if (remember.size() > 0 && remember.find('input').is(':checked')) 
-	                url += '&remember';*/
+					url += (url.indexOf('?') >= 0 ? '&' : '?') + 'remember';*/
 	            
 	            var centerWidth = ($(window).width() - options.popup.width) / 2;
 	            var centerHeight = ($(window).height() - options.popup.height) / 2;

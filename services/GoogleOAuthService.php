@@ -1,7 +1,9 @@
 <?php
 /**
  * GoogleOAuthService class file.
- *
+ * 
+ * Register application: https://code.google.com/apis/console/
+ * 
  * @author Maxim Zemskov <nodge@yandex.ru>
  * @link http://code.google.com/p/yii-eauth/
  * @license http://www.opensource.org/licenses/bsd-license.php
@@ -49,11 +51,19 @@ class GoogleOAuthService extends EOAuth2Service {
 		$info['locale']; // format: en*/
 	}
 
+	protected function getCodeUrl($redirect_uri) {
+		$this->setState('redirect_uri', $redirect_uri);
+		$url = parent::getCodeUrl($redirect_uri);
+		if (isset($_GET['js']))
+			$url .= '&display=popup';
+		return $url;
+	}
+	
 	protected function getTokenUrl($code) {
 		return $this->providerOptions['access_token'];
 	}
 	
-	protected function getAccessToken($code) {	
+	protected function getAccessToken($code) {
 		$params = array(
 			'client_id' => $this->client_id,
 			'client_secret' => $this->client_secret,
@@ -61,18 +71,19 @@ class GoogleOAuthService extends EOAuth2Service {
 			'code' => $code,
 			'redirect_uri' => $this->getState('redirect_uri'),
 		);
-		$result = $this->makeRequest($this->getTokenUrl($code), array('data' => $params));		
-		return $result->access_token;
+		return $this->makeRequest($this->getTokenUrl($code), array('data' => $params));
 	}
 	
-	protected function getCodeUrl($redirect_uri) {
-		$this->setState('redirect_uri', $redirect_uri);
-		$url = parent::getCodeUrl($redirect_uri);
-		//if (isset($_GET['js']))
-			//$url .= '&display=popup';
-		return $url;
+	/**
+	 * Save access token to the session.
+	 * @param stdClass $token access token array.
+	 */
+	protected function saveAccessToken($token) {
+		$this->setState('auth_token', $token->access_token);
+		$this->setState('expires', time() + $token->expires_in - 60);
+		$this->access_token = $token->access_token;
 	}
-	
+		
 	/**
 	 * Makes the curl request to the url.
 	 * @param string $url url to request.

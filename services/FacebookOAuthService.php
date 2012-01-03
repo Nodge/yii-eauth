@@ -2,6 +2,8 @@
 /**
  * FacebookOAuthService class file.
  *
+ * Register application: https://developers.facebook.com/apps/
+ * 
  * @author Maxim Zemskov <nodge@yandex.ru>
  * @link http://code.google.com/p/yii-eauth/
  * @license http://www.opensource.org/licenses/bsd-license.php
@@ -35,20 +37,8 @@ class FacebookOAuthService extends EOAuth2Service {
 		$this->attributes['name'] = $info->name;
 		$this->attributes['url'] = $info->link;
 	}
-		
-	protected function getTokenUrl($code) {
-		return parent::getTokenUrl($code).'&redirect_uri='.urlencode($this->getState('redirect_uri'));
-	}
-	
-	protected function getAccessToken($code) {
-		$response = $this->makeRequest($this->getTokenUrl($code), array(), false);
-		parse_str($response, $result);
-		return $result['access_token'];
-	}
 	
 	protected function getCodeUrl($redirect_uri) {
-		/*if (strpos($redirect_uri, '?') !== false || strpos($redirect_uri, '&') !== false)
-			throw new EAuthException('Facebook does not support url with special characters. You should use SEF urls for authentication through Facebook.', 500);*/
 		if (strpos($redirect_uri, '?') !== false) {
 			$url = explode('?', $redirect_uri);
 			$url[1] = preg_replace('#[/]#', '%2F', $url[1]);
@@ -56,11 +46,32 @@ class FacebookOAuthService extends EOAuth2Service {
 		}
 		
 		$this->setState('redirect_uri', $redirect_uri);
+		
 		$url = parent::getCodeUrl($redirect_uri);
 		if (isset($_GET['js']))
 			$url .= '&display=popup';
 		
 		return $url;
+	}
+	
+	protected function getTokenUrl($code) {
+		return parent::getTokenUrl($code).'&redirect_uri='.urlencode($this->getState('redirect_uri'));
+	}
+	
+	protected function getAccessToken($code) {
+		$response = $this->makeRequest($this->getTokenUrl($code), array(), false);
+		parse_str($response, $result);
+		return $result;
+	}
+		
+	/**
+	 * Save access token to the session.
+	 * @param array $token access token array.
+	 */
+	protected function saveAccessToken($token) {
+		$this->setState('auth_token', $token['access_token']);
+		$this->setState('expires', time() + (int)$token['expires'] - 60);
+		$this->access_token = $token['access_token'];
 	}
 	
 	/**
