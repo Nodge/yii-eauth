@@ -33,11 +33,16 @@ class EAuthWidget extends CWidget {
 	 * @var string the action to use for dialog destination. Default: the current route.
 	 */
 	public $action = null;
-		
+
 	/**
-	 * Executes the widget.
+	 * Initializes the widget.
+	 * This method is called by {@link CBaseController::createWidget}
+	 * and {@link CBaseController::beginWidget} after the widget's
+	 * properties have been initialized.
 	 */
-    public function run() {
+	public function init() {
+		parent::init();
+		
 		// EAuth component
 		$component = Yii::app()->{$this->component};
 		
@@ -50,6 +55,14 @@ class EAuthWidget extends CWidget {
 		// Set the current route, if it is not set.
 		if (!isset($this->action))
 			$this->action = Yii::app()->urlManager->parseUrl(Yii::app()->request);
+	}
+	
+	/**
+	 * Executes the widget.
+	 * This method is called by {@link CBaseController::endWidget}.
+	 */
+    public function run() {
+		parent::run();
 		
 		$this->registerAssets();
 		$this->render('auth', array(
