@@ -1,7 +1,7 @@
 Yii EAuth Change Log
 ====================
 
-### In progress...
+### Version 1.1.5 (03.01.2012)
 * Added MoiKrug OAuth provider.
 * Added Odnoklassniki OAuth provider.
 * Added ability to write in the log of unsuccessful requests in the EAuthServiceBase::makeRequest().

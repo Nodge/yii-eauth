@@ -60,42 +60,49 @@ Yii EAuth extension
 					'class' => 'YandexOpenIDService',
 				),
 				'twitter' => array(
+					// регистрация приложения: https://dev.twitter.com/apps/new
 					'class' => 'TwitterOAuthService',
 					'key' => '...',
 					'secret' => '...',
 				),
 				'google_oauth' => array(
+					// регистрация приложения: https://code.google.com/apis/console/
 					'class' => 'GoogleOAuthService',
 					'client_id' => '...',
 					'client_secret' => '...',
 					'title' => 'Google (OAuth)',
 				),
 				'facebook' => array(
+					// регистрация приложения: https://developers.facebook.com/apps/
 					'class' => 'FacebookOAuthService',
 					'client_id' => '...',
 					'client_secret' => '...',
 				),
 				'vkontakte' => array(
+					// регистрация приложения: http://vkontakte.ru/editapp?act=create&site=1
 					'class' => 'VKontakteOAuthService',
 					'client_id' => '...',
 					'client_secret' => '...',
 				),
 				'mailru' => array(
+					// регистрация приложения: http://api.mail.ru/sites/my/add
 					'class' => 'MailruOAuthService',
 					'client_id' => '...',
 					'client_secret' => '...',
 				),
 				'moikrug' => array(
+					// регистрация приложения: https://oauth.yandex.ru/client/my
 					'class' => 'MoikrugOAuthService',
 					'client_id' => '...',
 					'client_secret' => '...',
 				),
 				'odnoklassniki' => array(
+					// регистрация приложения: http://www.odnoklassniki.ru/dk?st.cmd=appsInfoMyDevList&st._aid=Apps_Info_MyDev
 					'class' => 'OdnoklassnikiOAuthService',
 					'client_id' => '...',
-					'client_secret' => '...',
 					'client_public' => '...',
-					'title' => 'Одноклас.',
+					'client_secret' => '...',
+					'title' => 'Однокл.',
 				),
 			),
 		),
