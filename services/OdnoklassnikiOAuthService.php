@@ -19,7 +19,7 @@ class OdnoklassnikiOAuthService extends EOAuth2Service {
 	protected $name = 'odnoklassniki';
 	protected $title = 'Одноклассники';
 	protected $type = 'OAuth';
-	protected $jsArguments = array('popup' => array('width' => 580, 'height' => 400));
+	protected $jsArguments = array('popup' => array('width' => 680, 'height' => 500));
 
 	protected $client_id = '';
 	protected $client_secret = '';
