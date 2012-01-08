@@ -418,6 +418,7 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 	 * @return mixed the user id.
 	 */
 	public function getId() {
+		$this->_fetchAttributes();
 		return $this->attributes['id'];
 	}
 	
@@ -455,6 +456,7 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 	 * @return boolean true if attribute exists, false otherwise.
 	 */
 	public function hasAttribute($key) {
+		$this->_fetchAttributes();
 		return isset($this->attributes[$key]);
 	}
 	

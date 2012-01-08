@@ -1,6 +1,9 @@
 Yii EAuth Change Log
 ====================
 
+### In progress...
+* Fixed EAuthServiceBase::hasArrtubite() and EAuthServiceBase::getId() methods.
+
 ### Version 1.1.5 (03.01.2012)
 * Added MoiKrug OAuth provider.
 * Added Odnoklassniki OAuth provider.
