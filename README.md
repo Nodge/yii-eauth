@@ -33,7 +33,7 @@ The implementation of the authorization on your own server has several advantage
 * Ready for authenticate via Google, Twitter, Facebook and other providers.
 
 
-### Supported providers "out of the box":
+### Supported providers "out of box":
 
 * OpenID: Google, Yandex(ru)
 * OAuth: Twitter
@@ -72,6 +72,7 @@ The implementation of the authorization on your own server has several advantage
 		'ext.eoauth.*',
 		'ext.eoauth.lib.*',
 		'ext.lightopenid.*',
+		'ext.eauth.*',
 		'ext.eauth.services.*',
 	),
 ...
@@ -144,48 +145,6 @@ The implementation of the authorization on your own server has several advantage
 
 ## Usage
 
-#### The user identity
-
-```php
-<?php
-
-class ServiceUserIdentity extends UserIdentity {
-	const ERROR_NOT_AUTHENTICATED = 3;
-
-	/**
-	 * @var EAuthServiceBase the authorization service instance.
-	 */
-	protected $service;
-	
-	/**
-	 * Constructor.
-	 * @param EAuthServiceBase $service the authorization service instance.
-	 */
-	public function __construct($service) {
-		$this->service = $service;
-	}
-	
-	/**
-	 * Authenticates a user based on {@link username}.
-	 * This method is required by {@link IUserIdentity}.
-	 * @return boolean whether authentication succeeds.
-	 */
-	public function authenticate() {		
-		if ($this->service->isAuthenticated) {
-			$this->username = $this->service->getAttribute('name');
-			$this->setState('id', $this->service->id);
-			$this->setState('name', $this->username);
-			$this->setState('service', $this->service->serviceName);
-			$this->errorCode = self::ERROR_NONE;		
-		}
-		else {
-			$this->errorCode = self::ERROR_NOT_AUTHENTICATED;
-		}
-		return !$this->errorCode;
-	}
-}
-```
-
 #### The action
 
 ```php
@@ -199,7 +158,7 @@ class ServiceUserIdentity extends UserIdentity {
 			$authIdentity->cancelUrl = $this->createAbsoluteUrl('site/login');
 			
 			if ($authIdentity->authenticate()) {
-				$identity = new ServiceUserIdentity($authIdentity);
+				$identity = new EAuthUserIdentity($authIdentity);
 				
 				// successful authentication
 				if ($identity->authenticate()) {
@@ -218,7 +177,7 @@ class ServiceUserIdentity extends UserIdentity {
 			$this->redirect(array('site/login'));
 		}
 		
-		// default action code...
+		// default authorization code through login/password ..
 	}
 ```
 
@@ -231,6 +190,14 @@ class ServiceUserIdentity extends UserIdentity {
 ?>
 ```
 
+#### Getting more user data (optional)
+
+To receive all the necessary data to your application, you can override the base class of any provider.
+Base classes are stored in `protected/extensions/eauth/services/`.
+Examples of extended classes can be found in `protected/extensions/eauth/custom_services/`.
+
+After overriding the base class, you need to modify your configuration file to set new name of the class.
+Also you may need to override the `EAuthUserIdentity` class to store additional data.
 
 ## License
 

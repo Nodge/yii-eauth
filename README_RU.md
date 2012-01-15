@@ -69,6 +69,7 @@ Yii EAuth extension
 		'ext.eoauth.*',
 		'ext.eoauth.lib.*',
 		'ext.lightopenid.*',
+		'ext.eauth.*',
 		'ext.eauth.services.*',
 	),
 ...
@@ -141,48 +142,6 @@ Yii EAuth extension
 
 ## Использование
 
-#### Класс UserIdentity
-
-```php
-<?php
-
-class ServiceUserIdentity extends UserIdentity {
-	const ERROR_NOT_AUTHENTICATED = 3;
-
-	/**
-	 * @var EAuthServiceBase the authorization service instance.
-	 */
-	protected $service;
-	
-	/**
-	 * Constructor.
-	 * @param EAuthServiceBase $service the authorization service instance.
-	 */
-	public function __construct($service) {
-		$this->service = $service;
-	}
-	
-	/**
-	 * Authenticates a user based on {@link username}.
-	 * This method is required by {@link IUserIdentity}.
-	 * @return boolean whether authentication succeeds.
-	 */
-	public function authenticate() {		
-		if ($this->service->isAuthenticated) {
-			$this->username = $this->service->getAttribute('name');
-			$this->setState('id', $this->service->id);
-			$this->setState('name', $this->username);
-			$this->setState('service', $this->service->serviceName);
-			$this->errorCode = self::ERROR_NONE;		
-		}
-		else {
-			$this->errorCode = self::ERROR_NOT_AUTHENTICATED;
-		}
-		return !$this->errorCode;
-	}
-}
-```
-
 #### Действие в контроллере
 
 ```php
@@ -196,7 +155,7 @@ class ServiceUserIdentity extends UserIdentity {
 			$authIdentity->cancelUrl = $this->createAbsoluteUrl('site/login');
 			
 			if ($authIdentity->authenticate()) {
-				$identity = new ServiceUserIdentity($authIdentity);
+				$identity = new EAuthUserIdentity($authIdentity);
 				
 				// успешная авторизация
 				if ($identity->authenticate()) {
@@ -227,6 +186,15 @@ class ServiceUserIdentity extends UserIdentity {
 	$this->widget('ext.eauth.EAuthWidget', array('action' => 'site/login'));
 ?>
 ```
+
+#### Получение дополнительных данных (не обязательно)
+
+Чтобы получать все необходимые Вашему приложению данные, Вы можете переопределить базовый класс любого провайдера. 
+Базовые классы хранятся в `protected/extensions/eauth/services/`.
+Примеры расширенных классов можно посмотреть в `protected/extensions/eauth/custom_services/`.
+
+После переопределения базового класса, необходимо поправить Ваш файл конфигурации, указав новое имя класса.
+Возможно, Вам понадобится переопределить `EAuthUserIdentity` для сохранения дополнительных данных.
 
 
 ## Лицензия

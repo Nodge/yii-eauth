@@ -2,6 +2,7 @@ Yii EAuth Change Log
 ====================
 
 ### In progress...
+* Added EAuthUserIdentity class.
 * Fixed EAuthServiceBase::hasArrtubite() and EAuthServiceBase::getId() methods.
 
 ### Version 1.1.5 (03.01.2012)
