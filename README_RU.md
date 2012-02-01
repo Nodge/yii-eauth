@@ -196,6 +196,10 @@ Yii EAuth extension
 После переопределения базового класса, необходимо поправить Ваш файл конфигурации, указав новое имя класса.
 Возможно, Вам понадобится переопределить `EAuthUserIdentity` для сохранения дополнительных данных.
 
+#### Перевод сообщений (не обязательно)
+
+* Для перевода EAuth на другие языки скопируйте файл `/protected/extensions/eauth/messages/[lang]/eauth.php` в `/protected/messages/[lang]/eauth.php`, где [lang] - код необходимого языка.
+* Если в `/protected/extensions/eauth/messages/` нет нужного Вам языка, можно воспользоваться файлом `/protected/extensions/eauth/messages/blank/eauth.php` для перевода расширения на другие языки.
 
 ## Лицензия
 

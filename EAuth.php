@@ -57,7 +57,7 @@ class EAuth extends CApplicationComponent {
 		$service = strtolower($service);
 		$services = $this->getServices();
 		if (!isset($services[$service]))
-			throw new EAuthException(Yii::t('eauth', 'Undefined service name: {service}', array('{service}' => $service)), 500);
+			throw new EAuthException(Yii::t('eauth', 'Undefined service name: {service}.', array('{service}' => $service), 'en'), 500);
 		return $services[$service];
 	}
 	
@@ -79,7 +79,7 @@ class EAuth extends CApplicationComponent {
 	public function getIdentity($service) {
 		$service = strtolower($service);
 		if (!isset($this->services[$service]))
-			throw new EAuthException(Yii::t('eauth', 'Undefined service name: {service}', array('{service}' => $service)), 500);
+			throw new EAuthException(Yii::t('eauth', 'Undefined service name: {service}.', array('{service}' => $service), 'en'), 500);
 		$service = $this->services[$service];
 		
 		$class = $service['class'];

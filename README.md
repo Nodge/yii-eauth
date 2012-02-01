@@ -199,6 +199,11 @@ Examples of extended classes can be found in `protected/extensions/eauth/custom_
 After overriding the base class, you need to modify your configuration file to set new name of the class.
 Also you may need to override the `EAuthUserIdentity` class to store additional data.
 
+#### Translations (optional)
+
+* Copy the file `/protected/extensions/eauth/messages/[lang]/eauth.php` to `/protected/messages/[lang]/eauth.php` to translate the EAuth extension into other languages.
+* To add a new language, you can use the blank file `/protected/extensions/eauth/messages/blank/eauth.php`.
+
 ## License
 
 Some time ago I developed this extension for [LiStick.ru](http://listick.ru) and I still support the extension.
