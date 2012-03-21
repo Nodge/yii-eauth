@@ -18,7 +18,7 @@ require_once dirname(dirname(__FILE__)).'/EOAuth2Service.php';
 class OdnoklassnikiOAuthService extends EOAuth2Service {
 
 	protected $name = 'odnoklassniki';
-	protected $title = 'Одноклассники';
+	protected $title = 'Odnoklassniki';
 	protected $type = 'OAuth';
 	protected $jsArguments = array('popup' => array('width' => 680, 'height' => 500));
 

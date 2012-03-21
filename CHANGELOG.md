@@ -2,6 +2,7 @@ Yii EAuth Change Log
 ====================
 
 ### In progress...
+* Fixed translations.
 
 ### Version 1.1.6 (01.02.2012)
 * Added EAuthUserIdentity class.

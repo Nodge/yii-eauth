@@ -60,7 +60,7 @@ abstract class EOpenIDService extends EAuthServiceBase implements IAuthService {
 									$this->attributes[$key] = $attributes[$attr[1]];
 								}
 								else {
-									throw new EAuthException(Yii::t('eauth', 'Unable to complete the authentication because the required data was not received.', array('{provider}' => ucfirst($this->getServiceName())), 'en'));
+									throw new EAuthException(Yii::t('eauth', 'Unable to complete the authentication because the required data was not received.', array('{provider}' => ucfirst($this->getServiceName()))));
 									return false;
 								}
 							}
@@ -69,7 +69,7 @@ abstract class EOpenIDService extends EAuthServiceBase implements IAuthService {
 							return true;
 						}
 						else {
-							throw new EAuthException(Yii::t('eauth', 'Unable to complete the authentication because the required data was not received.', array('{provider}' => ucfirst($this->getServiceName())), 'en'));
+							throw new EAuthException(Yii::t('eauth', 'Unable to complete the authentication because the required data was not received.', array('{provider}' => ucfirst($this->getServiceName()))));
 							return false;
 						}
 					}

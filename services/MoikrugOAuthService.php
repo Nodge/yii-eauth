@@ -18,7 +18,7 @@ require_once dirname(dirname(__FILE__)).'/EOAuth2Service.php';
 class MoikrugOAuthService extends EOAuth2Service {
 
 	protected $name = 'moikrug';
-	protected $title = 'Мой круг';
+	protected $title = 'Moikrug.ru';
 	protected $type = 'OAuth';
 	protected $jsArguments = array('popup' => array('width' => 500, 'height' => 450));
 	

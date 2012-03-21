@@ -18,7 +18,7 @@ require_once dirname(dirname(__FILE__)).'/EOAuth2Service.php';
 class VKontakteOAuthService extends EOAuth2Service {	
 	
 	protected $name = 'vkontakte';
-	protected $title = 'ВКонтакте';
+	protected $title = 'VK.com';
 	protected $type = 'OAuth';
 	protected $jsArguments = array('popup' => array('width' => 585, 'height' => 350));
 

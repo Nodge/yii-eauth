@@ -113,7 +113,7 @@ abstract class EOAuthService extends EAuthServiceBase implements IAuthService {
 	 */
 	public function makeSignedRequest($url, $options = array(), $parseJson = true) {
 		if (!$this->getIsAuthenticated())
-			throw new CHttpException(401, Yii::t('eauth', 'Unable to complete the request because the user was not authenticated.', array(), 'en'));
+			throw new CHttpException(401, Yii::t('eauth', 'Unable to complete the request because the user was not authenticated.'));
 						
 		$consumer = $this->getConsumer();
 		$signatureMethod = new OAuthSignatureMethod_HMAC_SHA1();

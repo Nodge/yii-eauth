@@ -276,7 +276,7 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 				'Result: '.$result,
 				CLogger::LEVEL_ERROR, 'application.extensions.eauth'
 			);
-			throw new EAuthException(Yii::t('eauth', 'Invalid response http code: {code}.', array('{code}' => $headers['http_code']), 'en'), $headers['http_code']);
+			throw new EAuthException(Yii::t('eauth', 'Invalid response http code: {code}.', array('{code}' => $headers['http_code'])), $headers['http_code']);
 		}
 		
 		curl_close($ch);
@@ -314,7 +314,7 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 			$result = json_decode($response);
 			$error = $this->fetchJsonError($result);
 			if (!isset($result)) {
-				throw new EAuthException(Yii::t('eauth', 'Invalid response format.', array(), 'en'), 500);
+				throw new EAuthException(Yii::t('eauth', 'Invalid response format.', array()), 500);
 			}
 			else if (isset($error)) {
 				throw new EAuthException($error['message'], $error['code']);

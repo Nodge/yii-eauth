@@ -16,7 +16,7 @@ require_once dirname(dirname(__FILE__)).'/EOpenIDService.php';
 class YandexOpenIDService extends EOpenIDService {
 	
 	protected $name = 'yandex';
-	protected $title = 'Яндекс';
+	protected $title = 'Yandex';
 	protected $type = 'OpenID';
 	protected $jsArguments = array('popup' => array('width' => 900, 'height' => 550));
 	
