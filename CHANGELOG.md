@@ -2,9 +2,10 @@ Yii EAuth Change Log
 ====================
 
 ### In progress...
+* Fixed issue #10.
 * Fixed translations.
 * Fixed bug in the EOAuthService::initRequest(), incorrect variable use in http header.
-* Fixed translations.
+* Fixed error with CURL HTTP chunked transfer encoding.
 
 ### Version 1.1.6 (01.02.2012)
 * Added EAuthUserIdentity class.

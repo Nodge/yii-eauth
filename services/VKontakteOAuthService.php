@@ -24,7 +24,7 @@ class VKontakteOAuthService extends EOAuth2Service {
 
 	protected $client_id = '';
 	protected $client_secret = '';
-	protected $scope = '';
+	protected $scope = 'friends';
 	protected $providerOptions = array(
 		'authorize' => 'http://api.vkontakte.ru/oauth/authorize',
 		'access_token' => 'https://api.vkontakte.ru/oauth/access_token',
