@@ -2,7 +2,8 @@ Yii EAuth Change Log
 ====================
 
 ### In progress...
-* Fixed issue #10.
+* Fixed issue #11. Twitter must authorize user everytime they login.
+* Fixed issue #10. VKontakte must authorize user everytime they login with empty oauth scope.
 * Fixed translations.
 * Fixed bug in the EOAuthService::initRequest(), incorrect variable use in http header.
 * Fixed error with CURL HTTP chunked transfer encoding.

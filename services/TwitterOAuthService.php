@@ -26,7 +26,7 @@ class TwitterOAuthService extends EOAuthService {
 	protected $secret = '';
 	protected $providerOptions = array(
 		'request' => 'https://api.twitter.com/oauth/request_token',
-		'authorize' => 'https://api.twitter.com/oauth/authorize',
+		'authorize' => 'https://api.twitter.com/oauth/authenticate', //https://api.twitter.com/oauth/authorize
 		'access' => 'https://api.twitter.com/oauth/access_token',
 	);
 	
