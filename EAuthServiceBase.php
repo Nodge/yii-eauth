@@ -237,31 +237,6 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 	protected function makeRequest($url, $options = array(), $parseJson = true) {
 		$ch = $this->initRequest($url, $options);
 		
-		if (isset($options['referer']))
-			curl_setopt($ch, CURLOPT_REFERER, $options['referer']);
-		
-		if (isset($options['query'])) {
-			$url_parts = parse_url($url);
-			if (isset($url_parts['query'])) {
-				$old_query = http_build_query($url_parts['query']);
-				$url_parts['query'] = array_merge($url_parts['query'], $options['query']);
-				$new_query = http_build_query($url_parts['query']);
-				$url = str_replace($old_query, $new_query, $url);
-			}
-			else {
-				$url_parts['query'] = $options['query'];
-				$new_query = http_build_query($url_parts['query']);
-				$url .= '?'.$new_query;
-			}					
-		}
-		
-		if (isset($options['data'])) {
-			curl_setopt($ch, CURLOPT_POST, 1);
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $options['data']);
-		}
-		
-		curl_setopt($ch, CURLOPT_URL, $url);
-
 		$result = curl_exec($ch);
 		$headers = curl_getinfo($ch);
 
@@ -302,6 +277,35 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 		curl_setopt($ch, CURLOPT_HEADER, 0);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 		curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
+		
+		if (isset($options['referer']))
+			curl_setopt($ch, CURLOPT_REFERER, $options['referer']);
+		
+		if (isset($options['headers']))
+			curl_setopt($ch, CURLOPT_HTTPHEADER, $options['headers']);
+		
+		if (isset($options['query'])) {
+			$url_parts = parse_url($url);
+			if (isset($url_parts['query'])) {
+				$query = $url_parts['query'];
+				if (strlen($query) > 0)
+					$query .= '&';
+				$query .= http_build_query($options['query']);
+				$url = str_replace($url_parts['query'], $query, $url);
+			}
+			else {
+				$url_parts['query'] = $options['query'];
+				$new_query = http_build_query($url_parts['query']);
+				$url .= '?'.$new_query;
+			}					
+		}
+		
+		if (isset($options['data'])) {
+			curl_setopt($ch, CURLOPT_POST, 1);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $options['data']);
+		}
+		
+		curl_setopt($ch, CURLOPT_URL, $url);
 		return $ch;
 	}
 		

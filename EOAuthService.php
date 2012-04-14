@@ -98,7 +98,8 @@ abstract class EOAuthService extends EAuthServiceBase implements IAuthService {
 		$ch = parent::initRequest($url, $options);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Expect:'));
 		if (isset($options['data'])) {
-			curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: text/xml","SOAPAction: \"/soap/action/query\"", "Content-length: ".strlen($options['data']))); 
+			$data_str = http_build_query($options['data']);
+			curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: text/xml","SOAPAction: \"/soap/action/query\"", "Content-length: ".strlen($data_str))); 
 		}
 		return $ch;
 	}
