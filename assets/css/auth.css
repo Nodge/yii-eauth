@@ -19,6 +19,7 @@
 .auth-icon.mailru		 { background-position: 0 -204px; }
 .auth-icon.moikrug		 { background-position: 0 -238px; }
 .auth-icon.odnoklassniki { background-position: 0 -272px; }
+.auth-icon.linkedin      { background-position: 0 -306px; }
 
 
 .auth-link:hover .auth-icon i,

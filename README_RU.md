@@ -106,6 +106,12 @@ Yii EAuth extension
 					'client_id' => '...',
 					'client_secret' => '...',
 				),
+				'linkedin' => array(
+					// register your app here: https://www.linkedin.com/secure/developer
+					'class' => 'LinkedinOAuthService',
+					'key' => '...',
+					'secret' => '...',
+				),
 				'vkontakte' => array(
 					// регистрация приложения: http://vkontakte.ru/editapp?act=create&site=1
 					'class' => 'VKontakteOAuthService',
