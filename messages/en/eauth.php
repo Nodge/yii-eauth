@@ -15,4 +15,5 @@ return array(
 	'Mail.ru' => 'Mail.ru',
 	'Moikrug.ru' => 'Moikrug.ru',
 	'Odnoklassniki' => 'Odnoklassniki',
+	'GitHub' => 'GitHub',
 );
