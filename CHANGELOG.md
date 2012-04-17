@@ -1,7 +1,5 @@
 Yii EAuth Change Log
 ====================
-- fixed OAuth options[data]
-- add headers parametr in makeRequest
 
 ### In progress...
 * Added optional headers in EOAuthServiceBase::initRequest().

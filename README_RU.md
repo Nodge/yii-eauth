@@ -113,7 +113,7 @@ Yii EAuth extension
 					'secret' => '...',
 				),
 				'github' => array(
-				// регистрация приложения: https://github.com/settings/applications
+					// регистрация приложения: https://github.com/settings/applications
 					'class' => 'GitHubOAuthService',
 					'client_id' => '...',
 					'client_secret' => '...',
