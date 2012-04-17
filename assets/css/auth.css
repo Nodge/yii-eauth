@@ -20,7 +20,7 @@
 .auth-icon.moikrug		 { background-position: 0 -238px; }
 .auth-icon.odnoklassniki { background-position: 0 -272px; }
 .auth-icon.linkedin      { background-position: 0 -306px; }
-
+.auth-icon.github      { background-position: 0 -340px; }
 
 .auth-link:hover .auth-icon i,
 .auth-link:focus .auth-icon i {

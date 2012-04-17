@@ -115,6 +115,12 @@ The implementation of the authorization on your own server has several advantage
 					'key' => '...',
 					'secret' => '...',
 				),
+				'github' => array(
+					// register your app here: https://github.com/settings/applications
+					'class' => 'GitHubOAuthService',
+					'client_id' => '...',
+					'client_secret' => '...',
+				),
 				'vkontakte' => array(
 					// register your app here: http://vkontakte.ru/editapp?act=create&site=1
 					'class' => 'VKontakteOAuthService',
