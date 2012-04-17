@@ -1,20 +1,20 @@
 <?php
 
 return array(
-	'Undefined service name: {service}.' => 'Àâòîðèçàöèÿ ñ ïîìîùüþ {service} íå ïîääåðæèâàåòñÿ.',
-	'Invalid response http code: {code}.' => 'Íåâåðíûé îòâåò îò ñåðâåðà àâòîðèçàöèè: {code}.',
-	'Invalid response format.' => 'Ñåðâåð àâòîðèçàöèè âåðíóë äàííûå â íåïðàâèëüíîì ôîðìàòå.',
-	'Unable to complete the authentication because the required data was not received.' => 'Íåâîçìîæíî çàâåðøèòü àâòîðèçàöèþ ïîëüçîâàòåëÿ, ïîòîìó ÷òî {service} íå ïåðåäàåò íåîáõîäèìóþ èíôîðìàöèþ.',
-	'Unable to complete the request because the user was not authenticated.' => 'Íåâîçìîæíî âûïîëíèòü çàùèùåííûé çàïðîñ, ïîòîìó ÷òî ïîëüçîâàòåëü íå áûë àâòîðèçîâàí.',
+	'Undefined service name: {service}.' => 'ÐÐ²Ñ‚Ð¾Ñ€Ð¸Ð·Ð°Ñ†Ð¸Ñ Ñ Ð¿Ð¾Ð¼Ð¾Ñ‰ÑŒÑŽ {service} Ð½Ðµ Ð¿Ð¾Ð´Ð´ÐµÑ€Ð¶Ð¸Ð²Ð°ÐµÑ‚ÑÑ.',
+	'Invalid response http code: {code}.' => 'ÐÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ Ð¾Ñ‚Ð²ÐµÑ‚ Ð¾Ñ‚ ÑÐµÑ€Ð²ÐµÑ€Ð° Ð°Ð²Ñ‚Ð¾Ñ€Ð¸Ð·Ð°Ñ†Ð¸Ð¸: {code}.',
+	'Invalid response format.' => 'Ð¡ÐµÑ€Ð²ÐµÑ€ Ð°Ð²Ñ‚Ð¾Ñ€Ð¸Ð·Ð°Ñ†Ð¸Ð¸ Ð²ÐµÑ€Ð½ÑƒÐ» Ð´Ð°Ð½Ð½Ñ‹Ðµ Ð² Ð½ÐµÐ¿Ñ€Ð°Ð²Ð¸Ð»ÑŒÐ½Ð¾Ð¼ Ñ„Ð¾Ñ€Ð¼Ð°Ñ‚Ðµ.',
+	'Unable to complete the authentication because the required data was not received.' => 'ÐÐµÐ²Ð¾Ð·Ð¼Ð¾Ð¶Ð½Ð¾ Ð·Ð°Ð²ÐµÑ€ÑˆÐ¸Ñ‚ÑŒ Ð°Ð²Ñ‚Ð¾Ñ€Ð¸Ð·Ð°Ñ†Ð¸ÑŽ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»Ñ, Ð¿Ð¾Ñ‚Ð¾Ð¼Ñƒ Ñ‡Ñ‚Ð¾ {service} Ð½Ðµ Ð¿ÐµÑ€ÐµÐ´Ð°ÐµÑ‚ Ð½ÐµÐ¾Ð±Ñ…Ð¾Ð´Ð¸Ð¼ÑƒÑŽ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸ÑŽ.',
+	'Unable to complete the request because the user was not authenticated.' => 'ÐÐµÐ²Ð¾Ð·Ð¼Ð¾Ð¶Ð½Ð¾ Ð²Ñ‹Ð¿Ð¾Ð»Ð½Ð¸Ñ‚ÑŒ Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ð½Ñ‹Ð¹ Ð·Ð°Ð¿Ñ€Ð¾Ñ, Ð¿Ð¾Ñ‚Ð¾Ð¼Ñƒ Ñ‡Ñ‚Ð¾ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»ÑŒ Ð½Ðµ Ð±Ñ‹Ð» Ð°Ð²Ñ‚Ð¾Ñ€Ð¸Ð·Ð¾Ð²Ð°Ð½.',
 	
 	'Google' => 'Google',
 	'Twitter' => 'Twitter',
-	'Yandex' => 'ßíäåêñ',
-	'VK.com' => 'ÂÊîíòàêòå',
+	'Yandex' => 'Ð¯Ð½Ð´ÐµÐºÑ',
+	'VK.com' => 'Ð’ÐšÐ¾Ð½Ñ‚Ð°ÐºÑ‚Ðµ',
 	'Facebook' => 'Facebook',
 	'Mail.ru' => 'Mail.ru',
-	'Moikrug.ru' => 'Ìîé êðóã',
-	'Odnoklassniki' => 'Îäíîêëàññíèêè',
+	'Moikrug.ru' => 'ÐœÐ¾Ð¹ ÐºÑ€ÑƒÐ³',
+	'Odnoklassniki' => 'ÐžÐ´Ð½Ð¾ÐºÐ»Ð°ÑÑÐ½Ð¸ÐºÐ¸',
 	'LinkedIn' => 'LinkedIn',
 	'GitHub' => 'GitHub',
 );
