@@ -46,16 +46,22 @@ class LinkedinOAuthService extends EOAuthService {
 	 * @return array 
 	 */
 	protected function parseInfo($xml) {
+		/* @var $simplexml SimpleXMLElement */
 		$simplexml = simplexml_load_string($xml);
-		$array = json_decode(json_encode($simplexml), TRUE);
-        
-        foreach (array_slice($array, 0) as $key => $value) {
-			if (empty($value))
-				$array[$key] = NULL;
-			elseif (is_array($value))
-				$array[$key] = toArray($value);
+		return $this->xmlToArray($simplexml);
+	}
+	
+	/**
+	 *
+	 * @param SimpleXMLElement $element 
+	 * @return array
+	 */
+	protected function xmlToArray($element) {
+		$array = (array)$element;
+		foreach ($array as $key => $value) {
+			if (is_object($value))
+				$array[$key] = $this->xmlToArray($value);
 		}
-
-        return $array;
+		return $array;
 	}
 }
