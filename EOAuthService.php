@@ -97,10 +97,6 @@ abstract class EOAuthService extends EAuthServiceBase implements IAuthService {
 	protected function initRequest($url, $options = array()) {
 		$ch = parent::initRequest($url, $options);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Expect:'));
-		if (isset($options['data'])) {
-			$data_str = http_build_query($options['data']);
-			curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: text/xml","SOAPAction: \"/soap/action/query\"", "Content-length: ".strlen($data_str))); 
-		}
 		return $ch;
 	}
 	
@@ -120,10 +116,15 @@ abstract class EOAuthService extends EAuthServiceBase implements IAuthService {
 		$signatureMethod = new OAuthSignatureMethod_HMAC_SHA1();
 		$token = $this->getAccessToken();
 
-		$request = OAuthRequest::from_consumer_and_token($consumer, $token, isset($options['data']) ? 'POST' : 'GET', $url);
-		$request->sign_request($signatureMethod, $consumer, $token);
-		$url = $request->to_url();
+		$query = null;
+		if (isset($options['query'])) {
+			$query = $options['query'];
+			unset($options['query']);
+		}
 		
-		return $this->makeRequest($url, $options, $parseJson);
+		$request = OAuthRequest::from_consumer_and_token($consumer, $token, isset($options['data']) ? 'POST' : 'GET', $url, $query);
+		$request->sign_request($signatureMethod, $consumer, $token);
+		
+		return $this->makeRequest($request->to_url(), $options, $parseJson);
 	}
 }

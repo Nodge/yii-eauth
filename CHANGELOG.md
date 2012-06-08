@@ -5,6 +5,7 @@ Yii EAuth Change Log
 * Added optional headers in EOAuthServiceBase::initRequest().
 * Added LinkedIn OAuth provider.
 * Added GitHub OAuth provider.
+* Fixed sending signed requests with the query parameters in the EOAuthService.
 
 ### Version 1.1.7 (30.03.2012)
 * Fixed issue #11. Twitter must authorize user everytime they login.
