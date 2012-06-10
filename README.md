@@ -36,8 +36,8 @@ The implementation of the authorization on your own server has several advantage
 ### Supported providers "out of box":
 
 * OpenID: Google, Yandex(ru)
-* OAuth: Twitter
-* OAuth 2.0: Google, Facebook, VKontake(ru), Mail.ru(ru), Moi Krug(ru), Odnoklassniki(ru)
+* OAuth: Twitter, LinkedIn
+* OAuth 2.0: Google, Facebook, GitHub, VKontake(ru), Mail.ru(ru), Moi Krug(ru), Odnoklassniki(ru)
 
 
 ### Resources

@@ -33,8 +33,8 @@ Yii EAuth extension
 ### Поддерживаемые провайдеры "из коробки":
 
 * OpenID: Google, Яндекс
-* OAuth: Twitter
-* OAuth 2.0: Google, Facebook, ВКонтакте, Mail.ru, Мой круг, Одноклассники
+* OAuth: Twitter, LinkedIn
+* OAuth 2.0: Google, Facebook, ВКонтакте, Mail.ru, GitHub, Мой круг, Одноклассники
 
 
 ### Ссылки
