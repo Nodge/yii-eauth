@@ -2,6 +2,9 @@ Yii EAuth Change Log
 ====================
 
 ### In progress...
+
+
+### Version 1.1.8 (10.06.2012)
 * Added optional headers in EOAuthServiceBase::initRequest().
 * Added LinkedIn OAuth provider.
 * Added GitHub OAuth provider.
