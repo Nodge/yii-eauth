@@ -5,7 +5,7 @@
  * Register application: http://api.mail.ru/sites/my/add
  * 
  * @author ChooJoy <choojoy.work@gmail.com>
- * @link http://code.google.com/p/yii-eauth/
+ * @link http://github.com/Nodge/yii-eauth/
  * @license http://www.opensource.org/licenses/bsd-license.php
  */
 
