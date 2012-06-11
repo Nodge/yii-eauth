@@ -118,6 +118,12 @@ Yii EAuth extension
 					'client_id' => '...',
 					'client_secret' => '...',
 				),
+				'live' => array(
+					// регистрация приложения: https://manage.dev.live.com/Applications/Index
+					'class' => 'LiveOAuthService',
+					'client_id' => '...',
+					'client_secret' => '...',
+				),
 				'vkontakte' => array(
 					// регистрация приложения: http://vkontakte.ru/editapp?act=create&site=1
 					'class' => 'VKontakteOAuthService',

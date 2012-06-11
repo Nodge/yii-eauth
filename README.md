@@ -121,6 +121,12 @@ The implementation of the authorization on your own server has several advantage
 					'client_id' => '...',
 					'client_secret' => '...',
 				),
+				'live' => array(
+					// register your app here: https://manage.dev.live.com/Applications/Index
+					'class' => 'LiveOAuthService',
+					'client_id' => '...',
+					'client_secret' => '...',
+				),
 				'vkontakte' => array(
 					// register your app here: http://vkontakte.ru/editapp?act=create&site=1
 					'class' => 'VKontakteOAuthService',
