@@ -37,7 +37,7 @@ The implementation of the authorization on your own server has several advantage
 
 * OpenID: Google, Yandex(ru)
 * OAuth: Twitter, LinkedIn
-* OAuth 2.0: Google, Facebook, GitHub, VKontake(ru), Mail.ru(ru), Moi Krug(ru), Odnoklassniki(ru)
+* OAuth 2.0: Google, Facebook, Live, GitHub, VKontake(ru), Mail.ru(ru), Moi Krug(ru), Odnoklassniki(ru)
 
 
 ### Resources
