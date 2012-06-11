@@ -20,7 +20,7 @@ class LiveOAuthService extends EOAuth2Service {
 	protected $name = 'live';
 	protected $title = 'Live';
 	protected $type = 'OAuth';
-	protected $jsArguments = array('popup' => array('width' => 900, 'height' => 450));
+	protected $jsArguments = array('popup' => array('width' => 500, 'height' => 450));
 	
 	protected $client_id = '';
 	protected $client_secret = '';
