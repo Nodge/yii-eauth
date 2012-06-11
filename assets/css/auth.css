@@ -21,6 +21,7 @@
 .auth-icon.odnoklassniki { background-position: 0 -272px; }
 .auth-icon.linkedin      	 { background-position: 0 -306px; }
 .auth-icon.github      	 { background-position: 0 -340px; }
+.auth-icon.live      	 	 { background-position: 0 -372px; }
 
 .auth-link:hover .auth-icon i,
 .auth-link:focus .auth-icon i {
