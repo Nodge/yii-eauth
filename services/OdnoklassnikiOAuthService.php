@@ -32,16 +32,13 @@ class OdnoklassnikiOAuthService extends EOAuth2Service {
 	);
 
 	protected function fetchAttributes() {
-        $sig = strtolower(md5('application_key='.$this->client_public.'client_id='.$this->client_id.'format=JSONmethod=users.getCurrentUser'.md5($this->access_token.$this->client_secret)));
 		
-		$info = $this->makeRequest('http://api.odnoklassniki.ru/fb.do', array(
+		$info = $this->makeSignedRequest('http://api.odnoklassniki.ru/fb.do', array(
 			'query' => array(
 				'method' => 'users.getCurrentUser',
-				'sig' => $sig,
                 'format' => 'JSON',
                 'application_key' => $this->client_public,
 				'client_id' => $this->client_id,
-                'access_token' => $this->access_token,
 			),
 		));
 
@@ -61,8 +58,7 @@ class OdnoklassnikiOAuthService extends EOAuth2Service {
 			'code' => $code,
 			'redirect_uri' => $this->getState('redirect_uri'),
 		);
-        $url = $this->getTokenUrl($code).'?client_id='.$this->client_id.'&client_secret='.$this->client_secret.'&redirect_uri='.urlencode($this->getState('redirect_uri')).'&code='.$code.'&grant_type=authorization_code';
-		$result = $this->makeRequest($url, array('data' => $params));
+		$result = $this->makeRequest($this->getTokenUrl($code), array('data' => $params, 'query'=>$params));
 		return $result->access_token;
 	}
 
@@ -89,4 +85,20 @@ class OdnoklassnikiOAuthService extends EOAuth2Service {
 		else
 			return null;
 	}
+
+    public function makeSignedRequest($url, $options = array(), $parseJson = true) {
+        if (!$this->getIsAuthenticated())
+            throw new CHttpException(401, Yii::t('eauth', 'Unable to complete the authentication because the required data was not received.', array('{provider}' => ucfirst($this->serviceName))));
+
+        $_params = '';
+        ksort($options['query']);
+        foreach ($options['query'] as $k => $v)
+            $_params .= $k . '=' . $v;
+        $options['query']['sig'] = md5($_params . md5($this->access_token.$this->client_secret));
+        $options['query']['access_token'] = $this->access_token;
+
+        $result = $this->makeRequest($url, $options);
+        return $result;
+    }
+
 }
