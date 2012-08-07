@@ -103,6 +103,13 @@ The implementation of the authorization on your own server has several advantage
 					'client_secret' => '...',
 					'title' => 'Google (OAuth)',
 				),
+				'yandex_oauth' => array(
+					// register your app here: https://oauth.yandex.ru/client/my
+					'class' => 'YandexOAuthService',
+					'client_id' => '...',
+					'client_secret' => '...',
+					'title' => 'Yandex (OAuth)',
+				),
 				'facebook' => array(
 					// register your app here: https://developers.facebook.com/apps/
 					'class' => 'FacebookOAuthService',
