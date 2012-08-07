@@ -3,7 +3,7 @@ Yii EAuth Change Log
 
 ### In progress...
 * Added Microsoft Live OAuth provider.
-
+* Added Yandex OAuth provider.
 
 ### Version 1.1.8 (10.06.2012)
 * Added optional headers in EOAuthServiceBase::initRequest().
