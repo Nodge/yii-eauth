@@ -100,6 +100,13 @@ Yii EAuth extension
 					'client_secret' => '...',
 					'title' => 'Google (OAuth)',
 				),
+				'yandex_oauth' => array(
+					// регистрация приложения: https://oauth.yandex.ru/client/my
+					'class' => 'YandexOAuthService',
+					'client_id' => '...',
+					'client_secret' => '...',
+					'title' => 'Yandex (OAuth)',
+				),
 				'facebook' => array(
 					// регистрация приложения: https://developers.facebook.com/apps/
 					'class' => 'FacebookOAuthService',
