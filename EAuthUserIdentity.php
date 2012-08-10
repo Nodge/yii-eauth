@@ -54,7 +54,8 @@ class EAuthUserIdentity extends CBaseUserIdentity {
 			$this->setState('service', $this->service->serviceName);
 
 			$attributes = $this->service->getAttributes();
-			$this->setState(self::OAUTH_ATTRIBUTES, $attributes);
+			$session = Yii::app()->session;
+			$session[self::OAUTH_ATTRIBUTES] = $attributes;
 
 			$this->errorCode = self::ERROR_NONE;
 		}
