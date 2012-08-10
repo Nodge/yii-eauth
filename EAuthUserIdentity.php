@@ -12,23 +12,25 @@
  * @package application.extensions.eauth
  */
 class EAuthUserIdentity extends CBaseUserIdentity {
+	const OAUTH_ATTRIBUTES = 'oauth-attributes';
+
 	const ERROR_NOT_AUTHENTICATED = 3;
 
 	/**
 	 * @var EAuthServiceBase the authorization service instance.
 	 */
 	protected $service;
-	
+
 	/**
 	 * @var string the unique identifier for the identity.
 	 */
 	protected $id;
-	
+
 	/**
 	 * @var string the display name for the identity.
 	 */
 	protected $name;
-	
+
 	/**
 	 * Constructor.
 	 * @param EAuthServiceBase $service the authorization service instance.
@@ -36,22 +38,25 @@ class EAuthUserIdentity extends CBaseUserIdentity {
 	public function __construct($service) {
 		$this->service = $service;
 	}
-	
+
 	/**
 	 * Authenticates a user based on {@link service}.
 	 * This method is required by {@link IUserIdentity}.
 	 * @return boolean whether authentication succeeds.
 	 */
-	public function authenticate() {		
+	public function authenticate() {
 		if ($this->service->isAuthenticated) {
 			$this->id = $this->service->id;
 			$this->name = $this->service->getAttribute('name');
-			
+
 			$this->setState('id', $this->id);
 			$this->setState('name', $this->name);
 			$this->setState('service', $this->service->serviceName);
-			
-			$this->errorCode = self::ERROR_NONE;		
+
+			$attributes = $this->service->getAttributes();
+			$this->setState(self::OAUTH_ATTRIBUTES, $attributes);
+
+			$this->errorCode = self::ERROR_NONE;
 		}
 		else {
 			$this->errorCode = self::ERROR_NOT_AUTHENTICATED;
