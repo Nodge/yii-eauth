@@ -26,7 +26,7 @@ class CustomVKontakteService extends VKontakteOAuthService {
 
 		$this->attributes['id'] = $info->uid;
 		$this->attributes['name'] = $info->first_name.' '.$info->last_name;
-		$this->attributes['url'] = 'http://vkontakte.ru/id'.$info->uid;
+		$this->attributes['url'] = 'http://vk.com/id'.$info->uid;
 
 		if (!empty($info->nickname))
 			$this->attributes['username'] = $info->nickname;

@@ -12,7 +12,7 @@
  * @package application.extensions.eauth
  */
 class EAuthUserIdentity extends CBaseUserIdentity {
-	
+
 	const ERROR_NOT_AUTHENTICATED = 3;
 
 	/**
@@ -55,7 +55,7 @@ class EAuthUserIdentity extends CBaseUserIdentity {
 			// You can save all given attributes in session.
 			//$attributes = $this->service->getAttributes();
 			//$session = Yii::app()->session;
-			//$session['eauth_attributes'] = $attributes;
+			//$session['eauth_attributes'][$this->service->serviceName] = $attributes;
 
 			$this->errorCode = self::ERROR_NONE;
 		}

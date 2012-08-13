@@ -22,7 +22,7 @@ Yii EAuth extension
 * Расширять стандартные классы авторизации для получения дополнительных данных о пользователе.
 * Работать с API социальных сетей путем расширения класса авторизации необходимого сервиса.
 * Настраивать список поддерживаемых сайтом сервисов, переопределять внешний вид виджета авторизации, использовать popup окно для авторизации без закрытия вашего приложения.
-	
+
 ### Расширение содержит:
 
 * Компонент, содержащий вспомогательные функции.
@@ -132,7 +132,7 @@ Yii EAuth extension
 					'client_secret' => '...',
 				),
 				'vkontakte' => array(
-					// регистрация приложения: http://vkontakte.ru/editapp?act=create&site=1
+					// регистрация приложения: http://vk.com/editapp?act=create&site=1
 					'class' => 'VKontakteOAuthService',
 					'client_id' => '...',
 					'client_secret' => '...',
@@ -178,14 +178,14 @@ Yii EAuth extension
 			$authIdentity = Yii::app()->eauth->getIdentity($service);
 			$authIdentity->redirectUrl = Yii::app()->user->returnUrl;
 			$authIdentity->cancelUrl = $this->createAbsoluteUrl('site/login');
-			
+
 			if ($authIdentity->authenticate()) {
 				$identity = new EAuthUserIdentity($authIdentity);
-				
+
 				// успешная авторизация
 				if ($identity->authenticate()) {
 					Yii::app()->user->login($identity);
-					
+
 					// специальное перенаправления для корректного закрытия всплывающего окна
 					$authIdentity->redirect();
 				}
@@ -194,11 +194,11 @@ Yii EAuth extension
 					$authIdentity->cancel();
 				}
 			}
-			
+
 			// авторизация не удалась, перенаправляем на страницу входа
 			$this->redirect(array('site/login'));
 		}
-		
+
 		// далее стандартный код авторизации по логину/паролю...
 	}
 ```
@@ -207,14 +207,14 @@ Yii EAuth extension
 
 ```php
 <h2>Нажмите на иконку для входа через один из сайтов:</h2>
-<?php 
+<?php
 	$this->widget('ext.eauth.EAuthWidget', array('action' => 'site/login'));
 ?>
 ```
 
 #### Получение дополнительных данных (не обязательно)
 
-Чтобы получать все необходимые Вашему приложению данные, Вы можете переопределить базовый класс любого провайдера. 
+Чтобы получать все необходимые Вашему приложению данные, Вы можете переопределить базовый класс любого провайдера.
 Базовые классы хранятся в `protected/extensions/eauth/services/`.
 Примеры расширенных классов можно посмотреть в `protected/extensions/eauth/custom_services/`.
 
