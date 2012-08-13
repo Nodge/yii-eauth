@@ -1,6 +1,6 @@
 <?php
 /**
- * MoikrugOAuthService class file.
+ * YandexOAuthService class file.
  *
  * Register application: https://oauth.yandex.ru/client/my
  * 
@@ -12,7 +12,7 @@
 require_once dirname(dirname(__FILE__)).'/EOAuth2Service.php';
 
 /**
- * Moikrug provider class.
+ * Yandex OAuth provider class.
  * @package application.extensions.eauth.services
  */
 class YandexOAuthService extends EOAuth2Service {
