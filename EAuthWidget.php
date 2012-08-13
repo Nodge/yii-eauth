@@ -12,23 +12,28 @@
  * @package application.extensions.eauth
  */
 class EAuthWidget extends CWidget {
-		
+
 	/**
 	 * @var string EAuth component name.
 	 */
 	public $component = 'eauth';
-	
+
 	/**
 	 * @var array the services.
-	 * @see EAuth::getServices() 
+	 * @see EAuth::getServices()
 	 */
 	public $services = null;
-	
+
+	/**
+	 * @var array predefined services. If null then use all services. Default is null.
+	 */
+	public $predefinedServices = null;
+
 	/**
 	 * @var boolean whether to use popup window for authorization dialog. Javascript required.
 	 */
 	public $popup = null;
-	
+
 	/**
 	 * @var string the action to use for dialog destination. Default: the current route.
 	 */
@@ -42,28 +47,37 @@ class EAuthWidget extends CWidget {
 	 */
 	public function init() {
 		parent::init();
-		
+
 		// EAuth component
-		$component = Yii::app()->{$this->component};
-		
+		$component = Yii::app()->getComponent($this->component);
+
 		// Some default properties from component configuration
 		if (!isset($this->services))
 			$this->services = $component->getServices();
+
+		if (isset($this->predefinedServices) && is_array($this->predefinedServices)) {
+			$tmpServices = $this->services;
+			$this->services = array();
+			foreach ($tmpServices as $serviceName => $data)
+				if (in_array($serviceName, $this->predefinedServices, true))
+					$this->services[$serviceName] = $data;
+		}
+
 		if (!isset($this->popup))
 			$this->popup = $component->popup;
-		
+
 		// Set the current route, if it is not set.
 		if (!isset($this->action))
 			$this->action = Yii::app()->urlManager->parseUrl(Yii::app()->request);
 	}
-	
+
 	/**
 	 * Executes the widget.
 	 * This method is called by {@link CBaseController::endWidget}.
 	 */
     public function run() {
 		parent::run();
-		
+
 		$this->registerAssets();
 		$this->render('auth', array(
 			'id' => $this->getId(),
@@ -71,7 +85,7 @@ class EAuthWidget extends CWidget {
 			'action' => $this->action,
 		));
     }
-	
+
 	/**
 	 * Register CSS and JS files.
 	 */

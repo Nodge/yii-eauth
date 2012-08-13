@@ -23,7 +23,7 @@ The implementation of the authorization on your own server has several advantage
 * Extend the standard authorization classes to obtain additional data about the user.
 * Work with the API of social networks by extending the authorization classes.
 * Set up a list of supported services, customize the appearance of the widget, use the popup window without closing your application.
-	
+
 
 ### Extension includes:
 
@@ -135,7 +135,7 @@ The implementation of the authorization on your own server has several advantage
 					'client_secret' => '...',
 				),
 				'vkontakte' => array(
-					// register your app here: http://vkontakte.ru/editapp?act=create&site=1
+					// register your app here: https://vk.com/editapp?act=create&site=1
 					'class' => 'VKontakteOAuthService',
 					'client_id' => '...',
 					'client_secret' => '...',
@@ -181,14 +181,14 @@ The implementation of the authorization on your own server has several advantage
 			$authIdentity = Yii::app()->eauth->getIdentity($service);
 			$authIdentity->redirectUrl = Yii::app()->user->returnUrl;
 			$authIdentity->cancelUrl = $this->createAbsoluteUrl('site/login');
-			
+
 			if ($authIdentity->authenticate()) {
 				$identity = new EAuthUserIdentity($authIdentity);
-				
+
 				// successful authentication
 				if ($identity->authenticate()) {
 					Yii::app()->user->login($identity);
-					
+
 					// special redirect with closing popup window
 					$authIdentity->redirect();
 				}
@@ -197,11 +197,11 @@ The implementation of the authorization on your own server has several advantage
 					$authIdentity->cancel();
 				}
 			}
-			
+
 			// Something went wrong, redirect to login page
 			$this->redirect(array('site/login'));
 		}
-		
+
 		// default authorization code through login/password ..
 	}
 ```
@@ -210,7 +210,7 @@ The implementation of the authorization on your own server has several advantage
 
 ```php
 <h2>Do you already have an account on one of these sites? Click the logo to log in with it here:</h2>
-<?php 
+<?php
 	$this->widget('ext.eauth.EAuthWidget', array('action' => 'site/login'));
 ?>
 ```
