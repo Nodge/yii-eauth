@@ -55,14 +55,15 @@ class EAuthWidget extends CWidget {
 		if (!isset($this->services))
 			$this->services = $component->getServices();
 
-		if (isset($this->predefinedServices) && is_array($this->predefinedServices)) {
-			$tmpServices = $this->services;
-			$this->services = array();
-			foreach ($tmpServices as $serviceName => $data)
-				if (in_array($serviceName, $this->predefinedServices, true))
-					$this->services[$serviceName] = $data;
-		}
-
+		if (is_array($this->predefinedServices)) {
+			$_services = array();
+			foreach ($this->predefinedServices as $_serviceName) {
+				if (isset($this->services[$_serviceName]))
+					$_services[] = $this->services[$_serviceName];
+			}
+			$this->services = $_services;
+		}		
+		
 		if (!isset($this->popup))
 			$this->popup = $component->popup;
 

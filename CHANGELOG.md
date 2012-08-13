@@ -6,6 +6,7 @@ Yii EAuth Change Log
 * Added Yandex OAuth provider.
 * Added CustomFacebookService example class.
 * Added 'cache' and 'cacheExpire' options to control cache.
+* Added list of services to display in the EAuthWidget.
 * Changed VK.com API urls.
 
 ### Version 1.1.8 (10.06.2012)
