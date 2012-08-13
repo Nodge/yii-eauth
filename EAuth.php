@@ -14,16 +14,6 @@
 class EAuth extends CApplicationComponent {
 
 	/**
-	 * @var integer the number of seconds in which the cached value will expire. 0 means never expire. False for disable cache
-	 */
-	public $cacheExpire = 0;
-
-	/**
-	 * @var boolean If true method EAuth::getServices() use cache. Default true.
-	 */
-	public $useCache = true;
-
-	/**
 	 * @var array Authorization services and their settings.
 	 */
 	public $services = array();
@@ -34,19 +24,31 @@ class EAuth extends CApplicationComponent {
 	public $popup = true;
 
 	/**
+	 * @var mixed Cache component name to use. False to disable cache.
+	 */
+	public $cache = 'cache';
+	
+	/**
+	 * @var integer the number of seconds in which the cached value will expire. 0 means never expire.
+	 */
+	public $cacheExpire = 0;
+	
+	/**
 	 * @var string popup redirect view with custom js code
 	 */
 	protected $redirectView = 'redirect';
 
 	/**
 	 * Returns services settings declared in the authorization classes.
-	 * For perfomance reasons it uses Yii::app()->cache to store settings array.
+	 * For perfomance reasons it uses cache to store settings array.
 	 * @return array services settings.
 	 */
 	public function getServices() {
 		$services = false;
-		if (Yii::app()->hasComponent('cache') && $this->useCache)
-			$services = Yii::app()->cache->get('EAuth.services');
+		if (!empty($this->cache) && Yii::app()->hasComponent($this->cache)) {
+			$cache = Yii::app()->getComponent($this->cache);
+			$services = $cache->get('EAuth.services');
+		}
 
 		if (false === $services || !is_array($services)) {
 			$services = array();
@@ -59,8 +61,8 @@ class EAuth extends CApplicationComponent {
 					'jsArguments' => $class->getJsArguments(),
 				);
 			}
-			if (Yii::app()->hasComponent('cache') && $this->useCache)
-				Yii::app()->cache->set('EAuth.services', $services, $this->cacheExpire);
+			if (isset($cache))
+				$cache->set('EAuth.services', $services, $this->cacheExpire);
 		}
 		return $services;
 	}
