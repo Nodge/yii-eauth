@@ -2,7 +2,7 @@
 /**
  * VKontakteOAuthService class file.
  *
- * Register application: http://vkontakte.ru/editapp?act=create&site=1
+ * Register application: http://vk.com/editapp?act=create&site=1
  *
  * @author Maxim Zemskov <nodge@yandex.ru>
  * @link http://github.com/Nodge/yii-eauth/
@@ -26,8 +26,8 @@ class VKontakteOAuthService extends EOAuth2Service {
 	protected $client_secret = '';
 	protected $scope = 'friends';
 	protected $providerOptions = array(
-		'authorize' => 'http://api.vkontakte.ru/oauth/authorize',
-		'access_token' => 'https://api.vkontakte.ru/oauth/access_token',
+		'authorize' => 'http://api.vk.com/oauth/authorize',
+		'access_token' => 'https://api.vk.com/oauth/access_token',
 	);
 
 	protected $uid = null;
@@ -45,7 +45,7 @@ class VKontakteOAuthService extends EOAuth2Service {
 
 		$this->attributes['id'] = $info->uid;
 		$this->attributes['name'] = $info->first_name.' '.$info->last_name;
-		$this->attributes['url'] = 'http://vkontakte.ru/id'.$info->uid;
+		$this->attributes['url'] = 'http://vk.com/id'.$info->uid;
 
 		/*if (!empty($info->nickname))
 			$this->attributes['username'] = $info->nickname;
