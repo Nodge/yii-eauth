@@ -82,7 +82,7 @@ class MoikrugOAuthService extends EOAuth2Service {
 	 */
 	public function makeSignedRequest($url, $options = array(), $parseJson = true) {
 		if (!$this->getIsAuthenticated())
-			throw new CHttpException(401, Yii::t('eauth', 'Unable to complete the authentication because the required data was not received.', array('{provider}' => ucfirst($this->serviceName))));
+			throw new CHttpException(401, Yii::t('eauth', 'Unable to complete the authentication because the required data was not received.', array('{provider}' => $this->getServiceTitle())));
 			
 		$options['query']['oauth_token'] = $this->access_token;
 		$result = $this->makeRequest($url, $options);

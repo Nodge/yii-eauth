@@ -129,7 +129,7 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 	 * @return string the service title.
 	 */
 	public function getServiceTitle() {
-		return $this->title;
+		return Yii::t('eauth', $this->title);
 	}
 
 	/**
