@@ -68,15 +68,26 @@ class VKontakteOAuthService extends EOAuth2Service {
 	/**
 	 * Returns the url to request to get OAuth2 code.
 	 * @param string $redirect_uri url to redirect after user confirmation.
-	 * @return string url to request.
+	 * @return string url to request. 
 	 */
 	protected function getCodeUrl($redirect_uri) {
+		$this->setState('redirect_uri', $redirect_uri);
+		
 		$url = parent::getCodeUrl($redirect_uri);
 		if (isset($_GET['js']))
 			$url .= '&display=popup';
+				
 		return $url;
 	}
-
+	
+	/**
+	 * Returns the url to request to get OAuth2 access token.
+	 * @return string url to request. 
+	 */
+	protected function getTokenUrl($code) {
+		return parent::getTokenUrl($code).'&redirect_uri='.urlencode($this->getState('redirect_uri'));
+	}
+	
 	/**
 	 * Save access token to the session.
 	 * @param stdClass $token access token object.
@@ -88,7 +99,7 @@ class VKontakteOAuthService extends EOAuth2Service {
 		$this->uid = $token->user_id;
 		$this->access_token = $token->access_token;
 	}
-
+	
 	/**
 	 * Restore access token from the session.
 	 * @return boolean whether the access token was successfuly restored.
