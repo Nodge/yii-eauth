@@ -1,15 +1,15 @@
 <?php
-
 /**
- * An example of extending the provider class.
+ * Yandex OAuth class with "state" field support. 
+ * See https://github.com/Nodge/yii-eauth/pull/21 for more details.
  *
- * @author Maxim Zemskov <nodge@yandex.ru>
- * @link http://code.google.com/p/yii-eauth/
+ * @author errRust https://github.com/errRust
+ * @link http://github.com/Nodge/yii-eauth/
  * @license http://www.opensource.org/licenses/bsd-license.php
  */
 require_once dirname(dirname(__FILE__)) . '/services/YandexOauthService.php';
 
-class CustomYandexOauthService extends YandexOAuthService {
+class CustomYandexOAuthService extends YandexOAuthService {
 
 	/**
 	 * Authenticate the user.
