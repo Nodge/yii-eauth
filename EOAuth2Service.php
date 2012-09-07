@@ -97,7 +97,7 @@ abstract class EOAuth2Service extends EAuthServiceBase implements IAuthService {
 	 * @return string url to request.
 	 */
 	protected function getTokenUrl($code) {
-		return $this->providerOptions['access_token'].'?client_id='.$this->client_id.'&client_secret='.$this->client_secret.'&code='.$code.'&redirect_uri='.urlencode($this->getState('redirect_uri'));;
+		return $this->providerOptions['access_token'].'?client_id='.$this->client_id.'&client_secret='.$this->client_secret.'&code='.$code.'&redirect_uri='.urlencode($this->getState('redirect_uri'));
 	}
 
 	/**
