@@ -2,7 +2,8 @@
 /**
  * OdnoklassnikiOAuthService class file.
  *
- * Register application: http://www.odnoklassniki.ru/dk?st.cmd=appsInfoMyDevList&st._aid=Apps_Info_MyDev
+ * Register application: http://dev.odnoklassniki.ru/wiki/pages/viewpage.action?pageId=13992188
+ * Manage your applications: http://www.odnoklassniki.ru/dk?st.cmd=appsInfoMyDevList&st._aid=Apps_Info_MyDev
  * Note: Enabling this service a little more difficult because of the authorization policy of the service.
  * 
  * @author Sergey Vardanyan <rakot.ss@gmail.com>

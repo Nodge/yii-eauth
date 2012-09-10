@@ -155,7 +155,8 @@ The implementation of the authorization on your own server has several advantage
 					'client_secret' => '...',
 				),
 				'odnoklassniki' => array(
-					// register your app here: http://www.odnoklassniki.ru/dk?st.cmd=appsInfoMyDevList&st._aid=Apps_Info_MyDev
+					// register your app here: http://dev.odnoklassniki.ru/wiki/pages/viewpage.action?pageId=13992188
+					// ... or here: http://www.odnoklassniki.ru/dk?st.cmd=appsInfoMyDevList&st._aid=Apps_Info_MyDev
 					'class' => 'OdnoklassnikiOAuthService',
 					'client_id' => '...',
 					'client_public' => '...',

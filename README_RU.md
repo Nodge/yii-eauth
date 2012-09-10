@@ -152,7 +152,9 @@ Yii EAuth extension
 					'client_secret' => '...',
 				),
 				'odnoklassniki' => array(
-					// регистрация приложения: http://www.odnoklassniki.ru/dk?st.cmd=appsInfoMyDevList&st._aid=Apps_Info_MyDev
+					// регистрация приложения: http://dev.odnoklassniki.ru/wiki/pages/viewpage.action?pageId=13992188
+					// ... или здесь: http://www.odnoklassniki.ru/dk?st.cmd=appsInfoMyDevList&st._aid=Apps_Info_MyDev
+					http://dev.odnoklassniki.ru/wiki/pages/viewpage.action?pageId=13992188
 					'class' => 'OdnoklassnikiOAuthService',
 					'client_id' => '...',
 					'client_public' => '...',
