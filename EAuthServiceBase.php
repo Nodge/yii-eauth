@@ -321,7 +321,7 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 			if (!isset($result)) {
 				throw new EAuthException(Yii::t('eauth', 'Invalid response format.', array()), 500);
 			}
-			else if (isset($error)) {
+			else if (isset($error) && !empty($error['message'])) {
 				throw new EAuthException($error['message'], $error['code']);
 			}
 			else
