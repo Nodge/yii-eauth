@@ -40,6 +40,12 @@ class EAuthWidget extends CWidget {
 	public $action = null;
 
 	/**
+	 * @var boolean include the CSS file. Default is true.
+	 * If this is set false, you are responsible to explicitly include the necessary CSS file in your page.
+	 */
+	public $cssFile = true;
+
+	/**
 	 * Initializes the widget.
 	 * This method is called by {@link CBaseController::createWidget}
 	 * and {@link CBaseController::beginWidget} after the widget's
@@ -96,7 +102,7 @@ class EAuthWidget extends CWidget {
 
 		$assets_path = dirname(__FILE__).DIRECTORY_SEPARATOR.'assets';
 		$url = Yii::app()->assetManager->publish($assets_path, false, -1, YII_DEBUG);
-		$cs->registerCssFile($url.'/css/auth.css');
+		if($this->cssFile) $cs->registerCssFile($url.'/css/auth.css');
 
 		// Open the authorization dilalog in popup window.
 		if ($this->popup) {
