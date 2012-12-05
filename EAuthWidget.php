@@ -27,7 +27,7 @@ class EAuthWidget extends CWidget {
 	/**
 	 * @var array predefined services. If null then use all services. Default is null.
 	 */
-	public $predefinedServices = array('yandex', 'google');
+	public $predefinedServices = null;
 
 	/**
 	 * @var boolean whether to use popup window for authorization dialog. Javascript required.
