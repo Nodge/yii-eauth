@@ -27,7 +27,7 @@ class EAuthWidget extends CWidget {
 	/**
 	 * @var array predefined services. If null then use all services. Default is null.
 	 */
-	public $predefinedServices = null;
+	public $predefinedServices = array('yandex', 'google');
 
 	/**
 	 * @var boolean whether to use popup window for authorization dialog. Javascript required.
@@ -65,7 +65,7 @@ class EAuthWidget extends CWidget {
 			$_services = array();
 			foreach ($this->predefinedServices as $_serviceName) {
 				if (isset($this->services[$_serviceName]))
-					$_services[] = $this->services[$_serviceName];
+					$_services[$_serviceName] = $this->services[$_serviceName];
 			}
 			$this->services = $_services;
 		}		
