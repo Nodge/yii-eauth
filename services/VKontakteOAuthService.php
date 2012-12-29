@@ -81,14 +81,6 @@ class VKontakteOAuthService extends EOAuth2Service {
 	}
 	
 	/**
-	 * Returns the url to request to get OAuth2 access token.
-	 * @return string url to request. 
-	 */
-	protected function getTokenUrl($code) {
-		return parent::getTokenUrl($code).'&redirect_uri='.urlencode($this->getState('redirect_uri'));
-	}
-	
-	/**
 	 * Save access token to the session.
 	 * @param stdClass $token access token object.
 	 */
@@ -123,8 +115,8 @@ class VKontakteOAuthService extends EOAuth2Service {
 	protected function fetchJsonError($json) {
 		if (isset($json->error)) {
 			return array(
-				'code' => $json->error->error_code,
-				'message' => $json->error->error_msg,
+				'code' => is_string($json->error) ? 0 : $json->error->error_code,
+				'message' => is_string($json->error) ? $json->error : $json->error->error_msg,
 			);
 		}
 		else
