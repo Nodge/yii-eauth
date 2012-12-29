@@ -224,7 +224,7 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 	 * Redirect to the {@link cancelUrl} or simply close the popup window.
 	 */
 	public function cancel($url = null) {
-		$this->component->redirect(isset($url) ? $url : $this->cancelUrl, false);
+		$this->component->redirect(isset($url) ? $url : $this->cancelUrl, !$this->component->popup);
 	}
 
 	/**
