@@ -23,16 +23,15 @@ jQuery(function($) {
 	                popup.close();
 
 	            var redirect_uri, 
-					url = redirect_uri = this.href,
-					$topWindow = $(window.top ? window.top : window);
-				
+					url = redirect_uri = this.href;
+												
 				url += url.indexOf('?') >= 0 ? '&' : '?';
 				if (url.indexOf('redirect_uri=') === -1)
 					url += 'redirect_uri=' + encodeURIComponent(redirect_uri) + '&';
 				url += 'js';
 
-	            var centerWidth = ($topWindow.width() - options.popup.width) / 2,
-					centerHeight = ($topWindow.height() - options.popup.height) / 2;
+	            var centerWidth = (window.screen.width - options.popup.width) / 2,
+					centerHeight = (window.screen.height - options.popup.height) / 2;
 
 				popup = window.open(url, "yii_eauth_popup", "width=" + options.popup.width + ",height=" + options.popup.height + ",left=" + centerWidth + ",top=" + centerHeight + ",resizable=yes,scrollbars=no,toolbar=no,menubar=no,location=no,directories=no,status=yes");
 	            popup.focus();
