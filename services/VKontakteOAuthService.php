@@ -87,7 +87,7 @@ class VKontakteOAuthService extends EOAuth2Service {
 	protected function saveAccessToken($token) {
 		$this->setState('auth_token', $token->access_token);
 		$this->setState('uid', $token->user_id);
-		$this->setState('expires', time() + $token->expires_in - 60);
+		$this->setState('expires', $token->expires_in === 0 ? (time()*2) : (time() + $token->expires_in - 60));
 		$this->uid = $token->user_id;
 		$this->access_token = $token->access_token;
 	}
