@@ -51,7 +51,7 @@ class CustomYandexOAuthService extends YandexOAuthService {
 	}
 
 	protected function getCodeUrl($redirect_uri, $state) {
-		return $this->providerOptions['authorize'].'?client_id='.$this->client_id.'&redirect_uri='.urlencode($redirect_uri).'&scope='.$this->scope.'&response_type=code&state='.$state;
+		return $this->providerOptions['authorize'].'?client_id='.$this->client_id.'&redirect_uri='.urlencode($redirect_uri).'&scope='.$this->scope.'&response_type=code&state='.urlencode($state);
 	}
 
 	protected function fetchAttributes() {
