@@ -215,9 +215,10 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 	/**
 	 * Redirect to the url. If url is null, {@link redirectUrl} will be used.
 	 * @param string $url url to redirect.
+	 * @param array $params
 	 */
-	public function redirect($url = null) {
-		$this->component->redirect(isset($url) ? $url : $this->redirectUrl, true);
+	public function redirect($url = null, $params=array()) {
+		$this->component->redirect(isset($url) ? $url : $this->redirectUrl, true, $params);
 	}
 
 	/**
