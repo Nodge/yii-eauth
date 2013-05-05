@@ -129,14 +129,18 @@ class EAuth extends CApplicationComponent {
 	 * to redirect anyway.
 	 * @param mixed $url url to redirect. Can be route or normal url. See {@link CHtml::normalizeUrl}.
 	 * @param boolean $jsRedirect whether to use redirect while popup window is used. Defaults to true.
+	 * @param array $params
 	 */
-	public function redirect($url, $jsRedirect = true) {
-		require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'EAuthRedirectWidget.php';
-		$widget = Yii::app()->getWidgetFactory()->createWidget($this, 'EAuthRedirectWidget', array(
-			'url' => CHtml::normalizeUrl($url),
-			'redirect' => $jsRedirect,
-			'view' => $this->redirectView
-		));
+	public function redirect($url, $jsRedirect = true, $params=array()) {
+		require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'EAuthRedirectWidget.php';
+		$widget = Yii::app()->getWidgetFactory()->createWidget($this, 'EAuthRedirectWidget',
+            array(
+                'url' => CHtml::normalizeUrl($url),
+                'redirect' => $jsRedirect,
+                'view' => $this->redirectView,
+                'params'=>$params
+            )
+        );
 		$widget->init();
 		$widget->run();
 	}
