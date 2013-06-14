@@ -1,22 +1,23 @@
 <?php
 /**
  * GoogleOAuthService class file.
- * 
+ *
  * Register application: https://code.google.com/apis/console/
- * 
+ *
  * @author Maxim Zemskov <nodge@yandex.ru>
  * @link http://github.com/Nodge/yii-eauth/
  * @license http://www.opensource.org/licenses/bsd-license.php
  */
 
-require_once dirname(dirname(__FILE__)).'/EOAuth2Service.php';
+require_once dirname(dirname(__FILE__)) . '/EOAuth2Service.php';
 
 /**
  * Google provider class.
+ *
  * @package application.extensions.eauth.services
  */
-class GoogleOAuthService extends EOAuth2Service {	
-	
+class GoogleOAuthService extends EOAuth2Service {
+
 	protected $name = 'google_oauth';
 	protected $title = 'Google';
 	protected $type = 'OAuth';
@@ -29,16 +30,17 @@ class GoogleOAuthService extends EOAuth2Service {
 		'authorize' => 'https://accounts.google.com/o/oauth2/auth',
 		'access_token' => 'https://accounts.google.com/o/oauth2/token',
 	);
-	
+
 	protected function fetchAttributes() {
 		$info = (array)$this->makeSignedRequest('https://www.googleapis.com/oauth2/v1/userinfo');
-				
+
 		$this->attributes['id'] = $info['id'];
 		$this->attributes['name'] = $info['name'];
-		
-		if (!empty($info['link']))
+
+		if (!empty($info['link'])) {
 			$this->attributes['url'] = $info['link'];
-		
+		}
+
 		/*if (!empty($info['gender']))
 			$this->attributes['gender'] = $info['gender'] == 'male' ? 'M' : 'F';
 		
@@ -54,15 +56,16 @@ class GoogleOAuthService extends EOAuth2Service {
 	protected function getCodeUrl($redirect_uri) {
 		$this->setState('redirect_uri', $redirect_uri);
 		$url = parent::getCodeUrl($redirect_uri);
-		if (isset($_GET['js']))
+		if (isset($_GET['js'])) {
 			$url .= '&display=popup';
+		}
 		return $url;
 	}
-	
+
 	protected function getTokenUrl($code) {
 		return $this->providerOptions['access_token'];
 	}
-	
+
 	protected function getAccessToken($code) {
 		$params = array(
 			'client_id' => $this->client_id,
@@ -73,9 +76,10 @@ class GoogleOAuthService extends EOAuth2Service {
 		);
 		return $this->makeRequest($this->getTokenUrl($code), array('data' => $params));
 	}
-	
+
 	/**
 	 * Save access token to the session.
+	 *
 	 * @param stdClass $token access token array.
 	 */
 	protected function saveAccessToken($token) {
@@ -83,9 +87,10 @@ class GoogleOAuthService extends EOAuth2Service {
 		$this->setState('expires', time() + $token->expires_in - 60);
 		$this->access_token = $token->access_token;
 	}
-		
+
 	/**
 	 * Makes the curl request to the url.
+	 *
 	 * @param string $url url to request.
 	 * @param array $options HTTP request options. Keys: query, data, referer.
 	 * @param boolean $parseJson Whether to parse response in json format.
@@ -95,9 +100,10 @@ class GoogleOAuthService extends EOAuth2Service {
 		$options['query']['alt'] = 'json';
 		return parent::makeRequest($url, $options, $parseJson);
 	}
-	
+
 	/**
 	 * Returns the error info from json.
+	 *
 	 * @param stdClass $json the json response.
 	 * @return array the error array with 2 keys: code and message. Should be null if no errors.
 	 */
@@ -108,7 +114,8 @@ class GoogleOAuthService extends EOAuth2Service {
 				'message' => $json->error->message,
 			);
 		}
-		else
+		else {
 			return null;
+		}
 	}
 }

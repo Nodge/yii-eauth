@@ -9,6 +9,7 @@
 
 /**
  * EAuthUserIdentity is a base User Identity class to authenticate with EAuth.
+ *
  * @package application.extensions.eauth
  */
 class EAuthUserIdentity extends CBaseUserIdentity {
@@ -32,6 +33,7 @@ class EAuthUserIdentity extends CBaseUserIdentity {
 
 	/**
 	 * Constructor.
+	 *
 	 * @param EAuthServiceBase $service the authorization service instance.
 	 */
 	public function __construct($service) {
@@ -41,6 +43,7 @@ class EAuthUserIdentity extends CBaseUserIdentity {
 	/**
 	 * Authenticates a user based on {@link service}.
 	 * This method is required by {@link IUserIdentity}.
+	 *
 	 * @return boolean whether authentication succeeds.
 	 */
 	public function authenticate() {
@@ -68,6 +71,7 @@ class EAuthUserIdentity extends CBaseUserIdentity {
 	/**
 	 * Returns the unique identifier for the identity.
 	 * This method is required by {@link IUserIdentity}.
+	 *
 	 * @return string the unique identifier for the identity.
 	 */
 	public function getId() {
@@ -77,6 +81,7 @@ class EAuthUserIdentity extends CBaseUserIdentity {
 	/**
 	 * Returns the display name for the identity.
 	 * This method is required by {@link IUserIdentity}.
+	 *
 	 * @return string the display name for the identity.
 	 */
 	public function getName() {

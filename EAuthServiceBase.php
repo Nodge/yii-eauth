@@ -11,6 +11,7 @@ require_once 'IAuthService.php';
 
 /**
  * EAuthServiceBase is a base class for providers.
+ *
  * @package application.extensions.eauth
  */
 abstract class EAuthServiceBase extends CComponent implements IAuthService {
@@ -72,52 +73,62 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 	/**
 	 * PHP getter magic method.
 	 * This method is overridden so that service attributes can be accessed like properties.
+	 *
 	 * @param string $name property name.
 	 * @return mixed property value.
 	 * @see getAttribute
 	 */
 	public function __get($name) {
-		if ($this->hasAttribute($name))
+		if ($this->hasAttribute($name)) {
 			return $this->getAttribute($name);
-		else
+		}
+		else {
 			return parent::__get($name);
+		}
 	}
 
 	/**
 	 * Checks if a attribute value is null.
 	 * This method overrides the parent implementation by checking
 	 * if the attribute is null or not.
+	 *
 	 * @param string $name the attribute name.
 	 * @return boolean whether the attribute value is null.
 	 */
 	public function __isset($name) {
-		if ($this->hasAttribute($name))
+		if ($this->hasAttribute($name)) {
 			return true;
-		else
+		}
+		else {
 			return parent::__isset($name);
+		}
 	}
 
 	/**
 	 * Initialize the component.
 	 * Sets the default {@link redirectUrl} and {@link cancelUrl}.
+	 *
 	 * @param EAuth $component the component instance.
 	 * @param array $options properties initialization.
 	 */
 	public function init($component, $options = array()) {
-		if (isset($component))
+		if (isset($component)) {
 			$this->setComponent($component);
+		}
 
-		foreach ($options as $key => $val)
+		foreach ($options as $key => $val) {
 			$this->$key = $val;
+		}
 
 		$this->setRedirectUrl(Yii::app()->user->returnUrl);
 		$server = Yii::app()->request->getHostInfo();
 		$path = Yii::app()->request->getPathInfo();
-		$this->setCancelUrl($server.'/'.$path);
+		$this->setCancelUrl($server . '/' . $path);
 	}
 
 	/**
 	 * Returns service name(id).
+	 *
 	 * @return string the service name(id).
 	 */
 	public function getServiceName() {
@@ -126,6 +137,7 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 
 	/**
 	 * Returns service title.
+	 *
 	 * @return string the service title.
 	 */
 	public function getServiceTitle() {
@@ -134,6 +146,7 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 
 	/**
 	 * Returns service type (e.g. OpenID, OAuth).
+	 *
 	 * @return string the service type (e.g. OpenID, OAuth).
 	 */
 	public function getServiceType() {
@@ -142,6 +155,7 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 
 	/**
 	 * Returns arguments for the jQuery.eauth() javascript function.
+	 *
 	 * @return array the arguments for the jQuery.eauth() javascript function.
 	 */
 	public function getJsArguments() {
@@ -150,6 +164,7 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 
 	/**
 	 * Sets {@link EAuth} application component
+	 *
 	 * @param EAuth $component the application auth component.
 	 */
 	public function setComponent($component) {
@@ -158,6 +173,7 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 
 	/**
 	 * Returns the {@link EAuth} application component.
+	 *
 	 * @return EAuth the {@link EAuth} application component.
 	 */
 	public function getComponent() {
@@ -166,6 +182,7 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 
 	/**
 	 * Sets redirect url after successful authorization.
+	 *
 	 * @param string url to redirect.
 	 */
 	public function setRedirectUrl($url) {
@@ -174,6 +191,7 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 
 	/**
 	 * Returns the redirect url after successful authorization.
+	 *
 	 * @return string the redirect url after successful authorization.
 	 */
 	public function getRedirectUrl() {
@@ -182,6 +200,7 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 
 	/**
 	 * Sets redirect url after unsuccessful authorization (e.g. user canceled).
+	 *
 	 * @param string url to redirect.
 	 */
 	public function setCancelUrl($url) {
@@ -190,6 +209,7 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 
 	/**
 	 * Returns the redirect url after unsuccessful authorization (e.g. user canceled).
+	 *
 	 * @return string the redirect url after unsuccessful authorization (e.g. user canceled).
 	 */
 	public function getCancelUrl() {
@@ -198,6 +218,7 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 
 	/**
 	 * Authenticate the user.
+	 *
 	 * @return boolean whether user was successfuly authenticated.
 	 */
 	public function authenticate() {
@@ -206,18 +227,20 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 
 	/**
 	 * Whether user was successfuly authenticated.
+	 *
 	 * @return boolean whether user was successfuly authenticated.
 	 */
 	public function getIsAuthenticated() {
-        return $this->authenticated;
-    }
+		return $this->authenticated;
+	}
 
 	/**
 	 * Redirect to the url. If url is null, {@link redirectUrl} will be used.
+	 *
 	 * @param string $url url to redirect.
 	 * @param array $params
 	 */
-	public function redirect($url = null, $params=array()) {
+	public function redirect($url = null, $params = array()) {
 		$this->component->redirect(isset($url) ? $url : $this->redirectUrl, true, $params);
 	}
 
@@ -230,6 +253,7 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 
 	/**
 	 * Makes the curl request to the url.
+	 *
 	 * @param string $url url to request.
 	 * @param array $options HTTP request options. Keys: query, data, referer.
 	 * @param boolean $parseJson Whether to parse response in json format.
@@ -241,15 +265,16 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 		$result = curl_exec($ch);
 		$headers = curl_getinfo($ch);
 
-		if (curl_errno($ch) > 0)
+		if (curl_errno($ch) > 0) {
 			throw new EAuthException(curl_error($ch), curl_errno($ch));
+		}
 
 		if ($headers['http_code'] != 200) {
 			Yii::log(
-				'Invalid response http code: '.$headers['http_code'].'.'.PHP_EOL.
-				'URL: '.$url.PHP_EOL.
-				'Options: '.var_export($options, true).PHP_EOL.
-				'Result: '.$result,
+				'Invalid response http code: ' . $headers['http_code'] . '.' . PHP_EOL .
+					'URL: ' . $url . PHP_EOL .
+					'Options: ' . var_export($options, true) . PHP_EOL .
+					'Result: ' . $result,
 				CLogger::LEVEL_ERROR, 'application.extensions.eauth'
 			);
 			throw new EAuthException(Yii::t('eauth', 'Invalid response http code: {code}.', array('{code}' => $headers['http_code'])), $headers['http_code']);
@@ -257,14 +282,16 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 
 		curl_close($ch);
 
-		if ($parseJson)
+		if ($parseJson) {
 			$result = $this->parseJson($result);
+		}
 
 		return $result;
 	}
 
 	/**
 	 * Initializes a new session and return a cURL handle.
+	 *
 	 * @param string $url url to request.
 	 * @param array $options HTTP request options. Keys: query, data, referer.
 	 * @param boolean $parseJson Whether to parse response in json format.
@@ -279,25 +306,28 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 		curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
 
-		if (isset($options['referer']))
+		if (isset($options['referer'])) {
 			curl_setopt($ch, CURLOPT_REFERER, $options['referer']);
+		}
 
-		if (isset($options['headers']))
+		if (isset($options['headers'])) {
 			curl_setopt($ch, CURLOPT_HTTPHEADER, $options['headers']);
+		}
 
 		if (isset($options['query'])) {
 			$url_parts = parse_url($url);
 			if (isset($url_parts['query'])) {
 				$query = $url_parts['query'];
-				if (strlen($query) > 0)
+				if (strlen($query) > 0) {
 					$query .= '&';
+				}
 				$query .= http_build_query($options['query']);
 				$url = str_replace($url_parts['query'], $query, $url);
 			}
 			else {
 				$url_parts['query'] = $options['query'];
 				$new_query = http_build_query($url_parts['query']);
-				$url .= '?'.$new_query;
+				$url .= '?' . $new_query;
 			}
 		}
 
@@ -312,6 +342,7 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 
 	/**
 	 * Parse response from {@link makeRequest} in json format and check OAuth errors.
+	 *
 	 * @param string $response Json string.
 	 * @return object result.
 	 */
@@ -322,19 +353,22 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 			if (!isset($result)) {
 				throw new EAuthException(Yii::t('eauth', 'Invalid response format.', array()), 500);
 			}
-			else if (isset($error) && !empty($error['message'])) {
-				throw new EAuthException($error['message'], $error['code']);
+			else {
+				if (isset($error) && !empty($error['message'])) {
+					throw new EAuthException($error['message'], $error['code']);
+				}
+				else {
+					return $result;
+				}
 			}
-			else
-				return $result;
-		}
-		catch(Exception $e) {
+		} catch (Exception $e) {
 			throw new EAuthException($e->getMessage(), $e->getCode());
 		}
 	}
 
 	/**
 	 * Returns the error info from json.
+	 *
 	 * @param stdClass $json the json response.
 	 * @return array the error array with 2 keys: code and message. Should be null if no errors.
 	 */
@@ -345,19 +379,21 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 				'message' => 'Unknown error occurred.',
 			);
 		}
-		else
+		else {
 			return null;
+		}
 	}
 
 	/**
 	 * @return string a prefix for the name of the session variables storing eauth session data.
 	 */
 	protected function getStateKeyPrefix() {
-		return '__eauth_'.$this->getServiceName().'__';
+		return '__eauth_' . $this->getServiceName() . '__';
 	}
 
 	/**
 	 * Stores a variable in eauth session.
+	 *
 	 * @param string $key variable name.
 	 * @param mixed $value variable value.
 	 * @param mixed $defaultValue default value. If $value===$defaultValue, the variable will be
@@ -366,26 +402,30 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 	 */
 	protected function setState($key, $value, $defaultValue = null) {
 		$session = Yii::app()->session;
-		$key = $this->getStateKeyPrefix().$key;
-		if($value === $defaultValue)
+		$key = $this->getStateKeyPrefix() . $key;
+		if ($value === $defaultValue) {
 			unset($session[$key]);
-		else
+		}
+		else {
 			$session[$key] = $value;
+		}
 	}
 
 	/**
 	 * Returns a value indicating whether there is a state of the specified name.
+	 *
 	 * @param string $key state name.
 	 * @return boolean whether there is a state of the specified name.
 	 */
 	protected function hasState($key) {
 		$session = Yii::app()->session;
-		$key = $this->getStateKeyPrefix().$key;
+		$key = $this->getStateKeyPrefix() . $key;
 		return isset($session[$key]);
 	}
 
 	/**
 	 * Returns the value of a variable that is stored in eauth session.
+	 *
 	 * @param string $key variable name.
 	 * @param mixed $defaultValue default value.
 	 * @return mixed the value of the variable. If it doesn't exist in the session,
@@ -394,12 +434,13 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 	 */
 	protected function getState($key, $defaultValue = null) {
 		$session = Yii::app()->session;
-		$key = $this->getStateKeyPrefix().$key;
+		$key = $this->getStateKeyPrefix() . $key;
 		return isset($session[$key]) ? $session[$key] : $defaultValue;
 	}
 
 	/**
 	 * Fetch attributes array.
+	 *
 	 * @return boolean whether the attributes was successfully fetched.
 	 */
 	protected function fetchAttributes() {
@@ -414,13 +455,15 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 		if (!$this->fetched) {
 			$this->fetched = true;
 			$result = $this->fetchAttributes();
-			if (isset($result))
+			if (isset($result)) {
 				$this->fetched = $result;
+			}
 		}
 	}
 
 	/**
 	 * Returns the user unique id.
+	 *
 	 * @return mixed the user id.
 	 */
 	public function getId() {
@@ -430,6 +473,7 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 
 	/**
 	 * Returns the array that contains all available authorization attributes.
+	 *
 	 * @return array the attributes.
 	 */
 	public function getAttributes() {
@@ -443,21 +487,25 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 
 	/**
 	 * Returns the authorization attribute value.
+	 *
 	 * @param string $key the attribute name.
 	 * @param mixed $default the default value.
 	 * @return mixed the attribute value.
 	 */
 	public function getAttribute($key, $default = null) {
 		$this->_fetchAttributes();
-		$getter = 'get'.$key;
-		if (method_exists($this, $getter))
+		$getter = 'get' . $key;
+		if (method_exists($this, $getter)) {
 			return $this->$getter();
-		else
+		}
+		else {
 			return isset($this->attributes[$key]) ? $this->attributes[$key] : $default;
+		}
 	}
 
 	/**
 	 * Whether the authorization attribute exists.
+	 *
 	 * @param string $key the attribute name.
 	 * @return boolean true if attribute exists, false otherwise.
 	 */
@@ -468,20 +516,24 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 
 	/**
 	 * Returns the object with a human-readable representation of the current authorization.
+	 *
 	 * @return stdClass the object.
 	 */
 	public function getItem() {
 		$item = new stdClass;
 		$item->title = $this->getAttribute('name');
-		if (empty($this->title))
+		if (empty($this->title)) {
 			$item->title = $this->getId();
-		if ($this->hasAttribute('url'))
+		}
+		if ($this->hasAttribute('url')) {
 			$item->url = $this->getAttribute('url');
+		}
 		return $item;
 	}
 
 	/**
 	 * Returns the array that contains all available authorization attributes.
+	 *
 	 * @return array the attributes.
 	 * @deprecated because getAttributes is more semantic.
 	 */

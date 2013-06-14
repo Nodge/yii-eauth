@@ -6,7 +6,7 @@ return array(
 	'Invalid response format.' => 'Invalid response format.',
 	'Unable to complete the authentication because the required data was not received.' => 'Unable to complete the authentication because the required data was not received.',
 	'Unable to complete the request because the user was not authenticated.' => 'Unable to complete the request because the user was not authenticated.',
-	
+
 	'Google' => 'Google',
 	'Twitter' => 'Twitter',
 	'Yandex' => 'Yandex',
