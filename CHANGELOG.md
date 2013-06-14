@@ -1,7 +1,12 @@
 Yii EAuth Change Log
 ====================
 
-### In progress...
+### 15.06.2013
+* Update Twitter API to 1.1 (fixed #61)
+* Add User-Agent header in GitHubOAuthService.php (fixed #60)
+* Reformat source code
+
+### Changes before 15.06.2013
 * Added Microsoft Live OAuth provider.
 * Added Yandex OAuth provider.
 * Added CustomFacebookService example class.
