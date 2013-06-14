@@ -31,7 +31,7 @@ class TwitterOAuthService extends EOAuthService {
 	);
 	
 	protected function fetchAttributes() {
-		$info = $this->makeSignedRequest('https://api.twitter.com/1/account/verify_credentials.json');
+		$info = $this->makeSignedRequest('https://api.twitter.com/1.1/account/verify_credentials.json');
 		
 		$this->attributes['id'] = $info->id;
 		$this->attributes['name'] = $info->name;
