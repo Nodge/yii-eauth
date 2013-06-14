@@ -80,4 +80,16 @@ class GitHubOAuthService extends EOAuth2Service {
         else
             return null;
     }
+
+	/**
+	 * Add User-Agent header
+	 * @param string $url
+	 * @param array $options
+	 * @return cURL
+	 */
+	protected function initRequest($url, $options = array()) {
+		$ch = parent::initRequest($url, $options);
+		curl_setopt($ch, CURLOPT_USERAGENT, 'yii-eauth extension');
+		return $ch;
+	}
 }
