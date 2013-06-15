@@ -88,9 +88,11 @@ The implementation of the authorization on your own server has several advantage
 			'services' => array( // You can change the providers and their classes.
 				'google' => array(
 					'class' => 'GoogleOpenIDService',
+					//'realm' => '*.example.org',
 				),
 				'yandex' => array(
 					'class' => 'YandexOpenIDService',
+					//'realm' => '*.example.org',
 				),
 				'twitter' => array(
 					// register your app here: https://dev.twitter.com/apps/new

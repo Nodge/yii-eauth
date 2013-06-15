@@ -85,9 +85,11 @@ Yii EAuth extension
 			'services' => array( // Вы можете настроить список провайдеров и переопределить их классы
 				'google' => array(
 					'class' => 'GoogleOpenIDService',
+					//'realm' => '*.example.org',
 				),
 				'yandex' => array(
 					'class' => 'YandexOpenIDService',
+					//'realm' => '*.example.org',
 				),
 				'twitter' => array(
 					// регистрация приложения: https://dev.twitter.com/apps/new

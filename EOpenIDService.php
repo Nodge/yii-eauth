@@ -17,6 +17,13 @@ require_once 'EAuthServiceBase.php';
 abstract class EOpenIDService extends EAuthServiceBase implements IAuthService {
 
 	/**
+	 * @var string a pattern that represents the part of URL-space for which an OpenID Authentication request is valid.
+	 * See the spec for more info: http://openid.net/specs/openid-authentication-2_0.html#realms
+	 * Note: a pattern can be without http(s):// part
+	 */
+	public $realm;
+
+	/**
 	 * @var EOpenID the openid library instance.
 	 */
 	private $auth;
@@ -94,8 +101,21 @@ abstract class EOpenIDService extends EAuthServiceBase implements IAuthService {
 			$this->auth->required = array(); //Try to get info from openid provider
 			foreach ($this->requiredAttributes as $attribute)
 				$this->auth->required[$attribute[0]] = $attribute[1];
-			$this->auth->realm = Yii::app()->request->hostInfo;
-			$this->auth->returnUrl = $this->auth->realm . Yii::app()->request->url; //getting return URL
+
+			if (isset($this->realm)) {
+				if (!preg_match('#^[a-z]+\://#', $this->realm)) {
+					$this->auth->realm = 'http' . (Yii::app()->request->getIsSecureConnection() ? 's' : '') . '://' . $this->realm;
+				}
+				else {
+					$this->auth->realm = $this->realm;
+				}
+			}
+			else {
+				$this->auth->realm = Yii::app()->request->hostInfo;
+			}
+
+			$this->auth->returnUrl = Yii::app()->request->hostInfo . Yii::app()->request->url; //getting return URL
+
 
 			try {
 				$url = $this->auth->authUrl();
