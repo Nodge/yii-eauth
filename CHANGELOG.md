@@ -6,6 +6,7 @@ Yii EAuth Change Log
 * Add User-Agent header in GitHubOAuthService.php (fixed #60)
 * Reformat source code
 * Added ability to change OpenID realm
+* Added OpenID optional attributes
 
 ### Changes before 15.06.2013
 * Added Microsoft Live OAuth provider.

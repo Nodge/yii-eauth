@@ -38,6 +38,11 @@ abstract class EOpenIDService extends EAuthServiceBase implements IAuthService {
 	 */
 	protected $requiredAttributes = array();
 
+	/**
+	 * @var array the OpenID optional attributes.
+	 */
+	protected $optionalAttributes = array();
+
 
 	/**
 	 * Initialize the component.
@@ -75,6 +80,12 @@ abstract class EOpenIDService extends EAuthServiceBase implements IAuthService {
 								}
 							}
 
+							foreach ($this->optionalAttributes as $key => $attr) {
+								if (isset($attributes[$attr[1]])) {
+									$this->attributes[$key] = $attributes[$attr[1]];
+								}
+							}
+
 							$this->authenticated = true;
 							return true;
 						}
@@ -99,8 +110,12 @@ abstract class EOpenIDService extends EAuthServiceBase implements IAuthService {
 		else {
 			$this->auth->identity = $this->url; //Setting identifier
 			$this->auth->required = array(); //Try to get info from openid provider
-			foreach ($this->requiredAttributes as $attribute)
+			foreach ($this->requiredAttributes as $attribute) {
 				$this->auth->required[$attribute[0]] = $attribute[1];
+			}
+			foreach ($this->optionalAttributes as $attribute) {
+				$this->auth->required[$attribute[0]] = $attribute[1];
+			}
 
 			if (isset($this->realm)) {
 				if (!preg_match('#^[a-z]+\://#', $this->realm)) {
