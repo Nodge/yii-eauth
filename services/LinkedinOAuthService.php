@@ -26,6 +26,7 @@ class LinkedinOAuthService extends EOAuthService {
 
 	protected $key = '';
 	protected $secret = '';
+	protected $scope = 'r_basicprofile'; // 'r_fullprofile r_emailaddress';
 	protected $providerOptions = array(
 		'request' => 'https://api.linkedin.com/uas/oauth/requestToken',
 		'authorize' => 'https://www.linkedin.com/uas/oauth/authenticate', // https://www.linkedin.com/uas/oauth/authorize
