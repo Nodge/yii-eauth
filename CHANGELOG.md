@@ -1,6 +1,9 @@
 Yii EAuth Change Log
 ====================
 
+### 08.07.2013
+* Added default scope to Linkedin provider.
+
 ### 15.06.2013
 * Update Twitter API to 1.1 (fixed #61)
 * Add User-Agent header in GitHubOAuthService.php (fixed #60)
