@@ -1,6 +1,10 @@
 Yii EAuth Change Log
 ====================
 
+### 08.08.2013
+* Added proper error handling.
+* Added Ukrainian translation.
+
 ### 08.07.2013
 * Added default scope to Linkedin provider.
 
