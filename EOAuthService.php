@@ -68,9 +68,14 @@ abstract class EOAuthService extends EAuthServiceBase implements IAuthService {
 	 * Authenticate the user.
 	 *
 	 * @return boolean whether user was successfuly authenticated.
+	 * @throws EAuthException
 	 */
 	public function authenticate() {
 		$this->authenticated = $this->auth->authenticate();
+		$error = $this->auth->getError();
+		if (isset($error)) {
+			throw new EAuthException($error);
+		}
 		return $this->getIsAuthenticated();
 	}
 

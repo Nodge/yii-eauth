@@ -31,6 +31,8 @@ class GitHubOAuthService extends EOAuth2Service {
 		'access_token' => 'https://github.com/login/oauth/access_token',
 	);
 
+	protected $errorAccessDeniedCode = 'user_denied';
+
 	protected function fetchAttributes() {
 		$info = (object)$this->makeSignedRequest('https://api.github.com/user');
 
@@ -53,19 +55,6 @@ class GitHubOAuthService extends EOAuth2Service {
 		$response = $this->makeRequest($this->getTokenUrl($code), array('data' => $params), false);
 		parse_str($response, $result);
 		return $result['access_token'];
-	}
-
-	/**
-	 * Authenticate the user.
-	 *
-	 * @return boolean whether user was successfuly authenticated.
-	 */
-	public function authenticate() {
-		if (isset($_GET['error']) && $_GET['error'] == 'user_denied') {
-			$this->cancel();
-		}
-
-		return parent::authenticate();
 	}
 
 	/**

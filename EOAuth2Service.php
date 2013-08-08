@@ -44,16 +44,42 @@ abstract class EOAuth2Service extends EAuthServiceBase implements IAuthService {
 	 */
 	protected $access_token = '';
 
+	/**
+	 * @var string Error key name in _GET options.
+	 */
+	protected $errorParam = 'error';
+
+	/**
+	 * @var string Error description key name in _GET options.
+	 */
+	protected $errorDescriptionParam = 'error_description';
+
+	/**
+	 * @var string Error code for access_denied response.
+	 */
+	protected $errorAccessDeniedCode = 'access_denied';
+
 
 	/**
 	 * Authenticate the user.
 	 *
 	 * @return boolean whether user was successfuly authenticated.
+	 * @throws EAuthException
 	 */
 	public function authenticate() {
-		// user denied error
-		if (isset($_GET['error']) && $_GET['error'] == 'access_denied') {
-			$this->cancel();
+		if (isset($_GET[$this->errorParam])) {
+			$error_code = $_GET[$this->errorParam];
+			if ($error_code === $this->errorAccessDeniedCode) {
+				// access_denied error (user canceled)
+				$this->cancel();
+			}
+			else {
+				$error = $error_code;
+				if (isset($_GET[$this->errorDescriptionParam])) {
+					$error = $_GET[$this->errorDescriptionParam].' ('.$error.')';
+				}
+				throw new EAuthException($error);
+			}
 			return false;
 		}
 
@@ -100,6 +126,7 @@ abstract class EOAuth2Service extends EAuthServiceBase implements IAuthService {
 	/**
 	 * Returns the url to request to get OAuth2 access token.
 	 *
+	 * @param string $code
 	 * @return string url to request.
 	 */
 	protected function getTokenUrl($code) {

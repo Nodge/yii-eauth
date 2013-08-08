@@ -60,6 +60,8 @@ abstract class EOpenIDService extends EAuthServiceBase implements IAuthService {
 	 * Authenticate the user.
 	 *
 	 * @return boolean whether user was successfuly authenticated.
+	 * @throws EAuthException
+	 * @throws CHttpException
 	 */
 	public function authenticate() {
 		if (!empty($_REQUEST['openid_mode'])) {
