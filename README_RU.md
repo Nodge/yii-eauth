@@ -179,30 +179,42 @@ Yii EAuth extension
 <?php
 ...
 	public function actionLogin() {
-		$service = Yii::app()->request->getQuery('service');
-		if (isset($service)) {
-			$authIdentity = Yii::app()->eauth->getIdentity($service);
-			$authIdentity->redirectUrl = Yii::app()->user->returnUrl;
-			$authIdentity->cancelUrl = $this->createAbsoluteUrl('site/login');
+		$serviceName = Yii::app()->request->getQuery('service');
+		if (isset($serviceName)) {
+			/** @var $eauth EAuthServiceBase */
+			$eauth = Yii::app()->eauth->getIdentity($serviceName);
+			$eauth->redirectUrl = Yii::app()->user->returnUrl;
+			$eauth->cancelUrl = $this->createAbsoluteUrl('site/login');
 
-			if ($authIdentity->authenticate()) {
-				$identity = new EAuthUserIdentity($authIdentity);
+			try {
+				if ($eauth->authenticate()) {
+					//var_dump($eauth->getIsAuthenticated(), $eauth->getAttributes());
+					$identity = new EAuthUserIdentity($eauth);
 
-				// успешная авторизация
-				if ($identity->authenticate()) {
-					Yii::app()->user->login($identity);
+					// успешная авторизация
+					if ($identity->authenticate()) {
+						Yii::app()->user->login($identity);
+						//var_dump($identity->id, $identity->name, Yii::app()->user->id);exit;
 
-					// специальное перенаправления для корректного закрытия всплывающего окна
-					$authIdentity->redirect();
+						// специальное перенаправления для корректного закрытия всплывающего окна
+						$eauth->redirect();
+					}
+					else {
+						// закрытие всплывающего окна и перенаправление на cancelUrl
+						$eauth->cancel();
+					}
 				}
-				else {
-					// закрытие всплывающего окна и перенаправление на cancelUrl
-					$authIdentity->cancel();
-				}
+
+				// авторизация не удалась, перенаправляем на страницу входа
+				$this->redirect(array('site/login'));
 			}
+			catch (EAuthException $e) {
+				// сохраняем ошибку в сессию
+				Yii::app()->user->setFlash('error', 'EAuthException: '.$e->getMessage());
 
-			// авторизация не удалась, перенаправляем на страницу входа
-			$this->redirect(array('site/login'));
+				// закрытие всплывающего окна и перенаправление на cancelUrl
+				$eauth->redirect($eauth->getCancelUrl());
+			}
 		}
 
 		// далее стандартный код авторизации по логину/паролю...
@@ -212,6 +224,12 @@ Yii EAuth extension
 #### Представление
 
 ```php
+<?php
+	if (Yii::app()->user->hasFlash('error')) {
+		echo '<div class="error">'.Yii::app()->user->getFlash('error').'</div>';
+	}
+?>
+...
 <h2>Нажмите на иконку для входа через один из сайтов:</h2>
 <?php
 	$this->widget('ext.eauth.EAuthWidget', array('action' => 'site/login'));

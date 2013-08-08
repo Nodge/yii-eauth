@@ -181,30 +181,42 @@ The implementation of the authorization on your own server has several advantage
 <?php
 ...
 	public function actionLogin() {
-		$service = Yii::app()->request->getQuery('service');
-		if (isset($service)) {
-			$authIdentity = Yii::app()->eauth->getIdentity($service);
-			$authIdentity->redirectUrl = Yii::app()->user->returnUrl;
-			$authIdentity->cancelUrl = $this->createAbsoluteUrl('site/login');
+		$serviceName = Yii::app()->request->getQuery('service');
+		if (isset($serviceName)) {
+			/** @var $eauth EAuthServiceBase */
+			$eauth = Yii::app()->eauth->getIdentity($serviceName);
+			$eauth->redirectUrl = Yii::app()->user->returnUrl;
+			$eauth->cancelUrl = $this->createAbsoluteUrl('site/login');
 
-			if ($authIdentity->authenticate()) {
-				$identity = new EAuthUserIdentity($authIdentity);
+			try {
+				if ($eauth->authenticate()) {
+					//var_dump($eauth->getIsAuthenticated(), $eauth->getAttributes());
+					$identity = new EAuthUserIdentity($eauth);
 
-				// successful authentication
-				if ($identity->authenticate()) {
-					Yii::app()->user->login($identity);
+					// successful authentication
+					if ($identity->authenticate()) {
+						Yii::app()->user->login($identity);
+						//var_dump($identity->id, $identity->name, Yii::app()->user->id);exit;
 
-					// special redirect with closing popup window
-					$authIdentity->redirect();
+						// special redirect with closing popup window
+						$eauth->redirect();
+					}
+					else {
+						// close popup window and redirect to cancelUrl
+						$eauth->cancel();
+					}
 				}
-				else {
-					// close popup window and redirect to cancelUrl
-					$authIdentity->cancel();
-				}
+
+				// Something went wrong, redirect to login page
+				$this->redirect(array('site/login'));
 			}
+			catch (EAuthException $e) {
+				// save authentication error to session
+				Yii::app()->user->setFlash('error', 'EAuthException: '.$e->getMessage());
 
-			// Something went wrong, redirect to login page
-			$this->redirect(array('site/login'));
+				// close popup window and redirect to cancelUrl
+				$eauth->redirect($eauth->getCancelUrl());
+			}
 		}
 
 		// default authorization code through login/password ..
@@ -214,6 +226,12 @@ The implementation of the authorization on your own server has several advantage
 #### The view
 
 ```php
+<?php
+	if (Yii::app()->user->hasFlash('error')) {
+		echo '<div class="error">'.Yii::app()->user->getFlash('error').'</div>';
+	}
+?>
+...
 <h2>Do you already have an account on one of these sites? Click the logo to log in with it here:</h2>
 <?php
 	$this->widget('ext.eauth.EAuthWidget', array('action' => 'site/login'));
