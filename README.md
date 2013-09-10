@@ -6,6 +6,10 @@ Supported protocols: OpenID, OAuth 1.0 and OAuth 2.0.
 
 EAuth is a extension for provide a unified (does not depend on the selected service) method to authenticate the user. So, the extension itself does not perform login, does not register the user and does not bind the user accounts from different providers.
 
+* [Demo](http://nodge.ru/yii-eauth/demo/)
+* [Demo project](https://github.com/Nodge/yii-eauth-demo/)
+* [Installation](#installation)
+* [Version for yii2](https://github.com/Nodge/yii2-eauth/)
 
 ### Why own extension and not a third-party service?
 The implementation of the authorization on your own server has several advantages:
@@ -33,16 +37,31 @@ The implementation of the authorization on your own server has several advantage
 * Ready for authenticate via Google, Twitter, Facebook and other providers.
 
 
-### Supported providers "out of box":
+### Included services:
 
-* OpenID: Google, Yandex(ru)
-* OAuth: Twitter, LinkedIn
-* OAuth 2.0: Google, Facebook, Live, GitHub, VKontake(ru), Mail.ru(ru), Moi Krug(ru), Odnoklassniki(ru)
+* OpenID:
+	* Google
+	* Yandex (ru)
+* OAuth1:
+	* Twitter
+	* LinkedIn
+* OAuth2:
+	* Google
+	* Facebook
+	* Live
+	* GitHub
+	* Yandex (ru)
+	* VKontake (ru)
+	* Mail.ru (ru)
+	* Odnoklassniki (ru)
+	* Moi Krug(ru)
 
 
 ### Resources
 
 * [Yii EAuth](https://github.com/Nodge/yii-eauth)
+* [Demo](http://nodge.ru/yii-eauth/demo/)
+* [Demo project](https://github.com/Nodge/yii-eauth-demo/)
 * [Yii Framework](http://yiiframework.com/)
 * [OpenID](http://openid.net/)
 * [OAuth](http://oauth.net/)
@@ -175,6 +194,12 @@ The implementation of the authorization on your own server has several advantage
 
 ## Usage
 
+### Demo project
+
+The source code of the [demo](http://nodge.ru/yii-eauth/demo/) is available [here](https://github.com/Nodge/yii-eauth-demo/).
+
+### Basic setup
+
 #### The action
 
 ```php
@@ -238,6 +263,7 @@ The implementation of the authorization on your own server has several advantage
 ?>
 ```
 
+
 #### Getting more user data (optional)
 
 To receive all the necessary data to your application, you can override the base class of any provider.
@@ -247,10 +273,12 @@ Examples of extended classes can be found in `protected/extensions/eauth/custom_
 After overriding the base class, you need to modify your configuration file to set new name of the class.
 Also you may need to override the `EAuthUserIdentity` class to store additional data.
 
+
 #### Translations (optional)
 
 * Copy the file `/protected/extensions/eauth/messages/[lang]/eauth.php` to `/protected/messages/[lang]/eauth.php` to translate the EAuth extension into other languages.
 * To add a new language, you can use the blank file `/protected/extensions/eauth/messages/blank/eauth.php`.
+
 
 ## License
 
