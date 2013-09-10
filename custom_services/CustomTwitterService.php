@@ -12,7 +12,7 @@ require_once dirname(dirname(__FILE__)) . '/services/TwitterOAuthService.php';
 class CustomTwitterService extends TwitterOAuthService {
 
 	protected function fetchAttributes() {
-		$info = $this->makeSignedRequest('https://api.twitter.com/1/account/verify_credentials.json');
+		$info = $this->makeSignedRequest('https://api.twitter.com/1.1/account/verify_credentials.json');
 
 		$this->attributes['id'] = $info->id;
 		$this->attributes['name'] = $info->name;
