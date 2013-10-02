@@ -22,9 +22,10 @@ class CustomMailruService extends MailruOAuthService {
 
 		$info = $info[0];
 
+		$this->attributes = json_decode(json_encode($info), true);
 		$this->attributes['id'] = $info->uid;
-		$this->attributes['first_name'] = $info->first_name;
-		$this->attributes['photo'] = $info->pic;
+		$this->attributes['name'] = $info->first_name . ' ' . $info->last_name;
+		$this->attributes['url'] = $info->link;
 	}
 
 }

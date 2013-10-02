@@ -7,7 +7,7 @@
  * @link http://github.com/Nodge/yii-eauth/
  * @license http://www.opensource.org/licenses/bsd-license.php
  */
-require_once dirname(dirname(__FILE__)) . '/services/YandexOauthService.php';
+require_once dirname(dirname(__FILE__)) . '/services/YandexOAuthService.php';
 
 class CustomYandexOAuthService extends YandexOAuthService {
 
@@ -45,7 +45,7 @@ class CustomYandexOAuthService extends YandexOAuthService {
 					$redirect_uri = $server . $path;
 				}
 
-				$url = $this->getCodeUrl($redirect_uri, $_GET['state']);
+				$url = $this->getCodeUrl($redirect_uri, isset($_GET['state']) ? $_GET['state'] : '');
 				Yii::app()->request->redirect($url);
 			}
 		}
@@ -62,10 +62,10 @@ class CustomYandexOAuthService extends YandexOAuthService {
 
 		// COMPOSING UNIFIED ATTRIBUTES FOR STORING IN DATABASE
 		$this->attributes['service'] = $this->name;
-		$this->attributes['access_token'] = $this->access_token;
+//		$this->attributes['access_token'] = $this->access_token;
 
 		$this->attributes['id'] = $info['id'];
-		$this->attributes['identifier'] = $info['id'];
+		$this->attributes['name'] = $info['real_name'];
 		$this->attributes['fullname'] = $info['real_name'];
 		$this->attributes['nickname'] = $info['display_name'];
 		$this->attributes['email'] = $info['default_email'];

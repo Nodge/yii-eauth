@@ -10,10 +10,22 @@ require_once dirname(dirname(__FILE__)) . '/services/OdnoklassnikiOAuthService.p
 
 class CustomOdnoklassnikiService extends OdnoklassnikiOAuthService {
 
-	protected $scope = 'VALUABLE ACCESS';
+//	protected $scope = 'VALUABLE ACCESS';
 
 	protected function fetchAttributes() {
-		parent::fetchAttributes();
+		$info = $this->makeSignedRequest('http://api.odnoklassniki.ru/fb.do', array(
+			'query' => array(
+				'method' => 'users.getCurrentUser',
+				'format' => 'JSON',
+				'application_key' => $this->client_public,
+				'client_id' => $this->client_id,
+			),
+		));
+
+		$this->attributes = json_decode(json_encode($info), true);
+		$this->attributes['id'] = $info->uid;
+		$this->attributes['name'] = $info->first_name . ' ' . $info->last_name;
+
 		if ($this->scope == 'VALUABLE ACCESS') {
 			$this->getRealIdAndUrl();
 		}
@@ -24,7 +36,6 @@ class CustomOdnoklassnikiService extends OdnoklassnikiOAuthService {
 	 * you should ask for enable this scope for odnoklassniki administration
 	 */
 	protected function getRealIdAndUrl() {
-
 		$info = $this->makeSignedRequest('http://api.odnoklassniki.ru/fb.do', array(
 			'query' => array(
 				'method' => 'users.getInfo',
