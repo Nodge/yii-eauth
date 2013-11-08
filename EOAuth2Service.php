@@ -95,25 +95,23 @@ abstract class EOAuth2Service extends EAuthServiceBase implements IAuthService {
 			$code = $_GET['code'];
 			$token = $this->getAccessToken($code);
 			if (isset($token)) {
-				$this->saveAccessToken($token);
 				$this->authenticated = true;
+				$this->saveAccessToken($token);
 			}
 		}
 		// Redirect to the authorization page
 		else {
-			if (!$this->restoreAccessToken()) {
-				// Use the URL of the current page as the callback URL.
-				if (isset($_GET['redirect_uri'])) {
-					$redirect_uri = $_GET['redirect_uri'];
-				}
-				else {
-					$server = Yii::app()->request->getHostInfo();
-					$path = Yii::app()->request->getUrl();
-					$redirect_uri = $server . $path;
-				}
-				$url = $this->getCodeUrl($redirect_uri);
-				Yii::app()->request->redirect($url);
+			// Use the URL of the current page as the callback URL.
+			if (isset($_GET['redirect_uri'])) {
+				$redirect_uri = $_GET['redirect_uri'];
 			}
+			else {
+				$server = Yii::app()->request->getHostInfo();
+				$path = Yii::app()->request->getUrl();
+				$redirect_uri = $server . $path;
+			}
+			$url = $this->getCodeUrl($redirect_uri);
+			Yii::app()->request->redirect($url);
 		}
 
 		return $this->getIsAuthenticated();
@@ -166,16 +164,30 @@ abstract class EOAuth2Service extends EAuthServiceBase implements IAuthService {
 	 * @return boolean whether the access token was successfuly restored.
 	 */
 	protected function restoreAccessToken() {
-		if ($this->hasState('auth_token') && $this->getState('expires', 0) > time()) {
-			$this->access_token = $this->getState('auth_token');
-			$this->authenticated = true;
-			return true;
+		if (!$this->authenticated) {
+			if ($this->hasState('auth_token') && $this->getState('expires', 0) > time()) {
+				$this->access_token = $this->getState('auth_token');
+				$this->authenticated = true;
+			}
+			else {
+				$this->access_token = null;
+				$this->authenticated = false;
+			}
 		}
-		else {
-			$this->access_token = null;
-			$this->authenticated = false;
-			return false;
-		}
+
+		return $this->authenticated;
+	}
+
+	/**
+	 * Returns fields required for signed request.
+	 * By default returns array('access_token' => $this->access_token).
+	 * Used in {@link makeSignedRequest}.
+	 * 
+	 * @return array 
+	 */
+	protected function getSignedRequestFields()
+	{
+		return array('access_token' => $this->access_token);
 	}
 
 	/**
@@ -192,8 +204,15 @@ abstract class EOAuth2Service extends EAuthServiceBase implements IAuthService {
 			throw new CHttpException(401, Yii::t('eauth', 'Unable to complete the request because the user was not authenticated.'));
 		}
 
-		$options['query']['access_token'] = $this->access_token;
+		// Merge query fields with fields required for signed request.
+		$options['query'] = 
+			array_merge(
+				isset($options['query']) ? $options['query'] : array(), 
+				$this->getSignedRequestFields()
+			);
+
 		$result = $this->makeRequest($url, $options);
+		
 		return $result;
 	}
 }

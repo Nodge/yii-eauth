@@ -114,9 +114,10 @@ class EAuth extends CApplicationComponent {
 	 * Returns the service identity class.
 	 *
 	 * @param string $service the service name.
+	 * @param array[optional] $options 
 	 * @return IAuthService the identity class.
 	 */
-	public function getIdentity($service) {
+	public function getIdentity($service, $options = array()) {
 		$service = strtolower($service);
 		if (!isset($this->services[$service])) {
 			throw new EAuthException(Yii::t('eauth', 'Undefined service name: {service}.', array('{service}' => $service)), 500);
@@ -132,7 +133,7 @@ class EAuth extends CApplicationComponent {
 		}
 		unset($service['class']);
 		$identity = new $class();
-		$identity->init($this, $service);
+		$identity->init($this, array_merge($service, $options));
 		return $identity;
 	}
 

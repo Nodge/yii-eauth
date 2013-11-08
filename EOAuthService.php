@@ -122,16 +122,18 @@ abstract class EOAuthService extends EAuthServiceBase implements IAuthService {
 	 * @return boolean whether the access credentials were successfully restored.
 	 */
 	protected function restoreCredentials() {
-		if ($this->hasState('auth_consumer') && $this->hasState('auth_token')) {
-			$this->auth->getProvider()->consumer = $this->getState('auth_consumer');
-			$this->auth->getProvider()->token = $this->getState('auth_token');
-			$this->authenticated = true;
-			return true;
+		if (!$this->authenticated) {
+			if ($this->hasState('auth_consumer') && $this->hasState('auth_token')) {
+				$this->auth->getProvider()->consumer = $this->getState('auth_consumer');
+				$this->auth->getProvider()->token = $this->getState('auth_token');
+				$this->authenticated = true;
+			}
+			else {
+				$this->authenticated = false;
+			}
 		}
-		else {
-			$this->authenticated = false;
-			return false;
-		}
+
+		return $this->authenticated;
 	}
 
 	/**
