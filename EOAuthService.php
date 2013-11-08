@@ -62,6 +62,9 @@ abstract class EOAuthService extends EAuthServiceBase implements IAuthService {
 			'secret' => $this->secret,
 			'provider' => $this->providerOptions,
 		));
+
+		// Try to restore access token and customer from session.
+		$this->restoreCredentials();
 	}
 
 	/**
@@ -76,6 +79,13 @@ abstract class EOAuthService extends EAuthServiceBase implements IAuthService {
 		if (isset($error)) {
 			throw new EAuthException($error);
 		}
+
+		// In case of successful authentication save access token and
+		// customer to session.
+		if ($this->authenticated) {
+			$this->saveCredentials();
+		}
+
 		return $this->getIsAuthenticated();
 	}
 
@@ -95,6 +105,33 @@ abstract class EOAuthService extends EAuthServiceBase implements IAuthService {
 	 */
 	protected function getAccessToken() {
 		return $this->auth->getProvider()->token;
+	}
+
+	/**
+	 * Save access credentials to the session.
+	 */
+	protected function saveCredentials() {
+
+		$this->setState('auth_token', $this->getAccessToken());
+		$this->setState('auth_consumer', $this->getConsumer());
+	}
+
+	/**
+	 * Restore access credentials from the session.
+	 *
+	 * @return boolean whether the access credentials were successfully restored.
+	 */
+	protected function restoreCredentials() {
+		if ($this->hasState('auth_consumer') && $this->hasState('auth_token')) {
+			$this->auth->getProvider()->consumer = $this->getState('auth_consumer');
+			$this->auth->getProvider()->token = $this->getState('auth_token');
+			$this->authenticated = true;
+			return true;
+		}
+		else {
+			$this->authenticated = false;
+			return false;
+		}
 	}
 
 	/**

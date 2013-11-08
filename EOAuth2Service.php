@@ -60,6 +60,13 @@ abstract class EOAuth2Service extends EAuthServiceBase implements IAuthService {
 	protected $errorAccessDeniedCode = 'access_denied';
 
 
+	public function init($component, $options = array()) {
+		parent::init($component, $options);
+
+		// Try to restore access token from session.
+		$this->restoreAccessToken();
+	}
+
 	/**
 	 * Authenticate the user.
 	 *
