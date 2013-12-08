@@ -1,6 +1,10 @@
 Yii EAuth Change Log
 ====================
 
+### 08.12.2013
+* Try to automatically restore OAuth tokens from session (#76)
+* Added ability to change redirectUrl and cancelUrl through config (#77)
+
 ### 08.08.2013
 * Added proper error handling.
 * Added Ukrainian translation.
