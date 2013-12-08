@@ -116,14 +116,14 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 			$this->setComponent($component);
 		}
 
-		foreach ($options as $key => $val) {
-			$this->$key = $val;
-		}
-
 		$this->setRedirectUrl(Yii::app()->user->returnUrl);
 		$server = Yii::app()->request->getHostInfo();
 		$path = Yii::app()->request->getPathInfo();
 		$this->setCancelUrl($server . '/' . $path);
+
+		foreach ($options as $key => $val) {
+			$this->$key = $val;
+		}
 	}
 
 	/**
