@@ -40,6 +40,20 @@ class EAuth extends CApplicationComponent {
 	protected $redirectView = 'redirect';
 
 	/**
+	 * Creates alias eauth and adds some import paths to simplify 
+	 * class files lookup.
+	 */
+	public function init() {
+		if (!Yii::getPathOfAlias('eauth')) {
+			Yii::setPathOfAlias('eauth', dirname(__FILE__));
+		}
+
+		Yii::import('eauth.*');
+		Yii::import('eauth.services.*');
+		Yii::import('eauth.custom_services.*');
+	}
+
+	/**
 	 * Returns services settings declared in the authorization classes.
 	 * For perfomance reasons it uses cache to store settings array.
 	 *
@@ -100,9 +114,10 @@ class EAuth extends CApplicationComponent {
 	 * Returns the service identity class.
 	 *
 	 * @param string $service the service name.
+	 * @param array[optional] $options 
 	 * @return IAuthService the identity class.
 	 */
-	public function getIdentity($service) {
+	public function getIdentity($service, $options = array()) {
 		$service = strtolower($service);
 		if (!isset($this->services[$service])) {
 			throw new EAuthException(Yii::t('eauth', 'Undefined service name: {service}.', array('{service}' => $service)), 500);
@@ -118,7 +133,7 @@ class EAuth extends CApplicationComponent {
 		}
 		unset($service['class']);
 		$identity = new $class();
-		$identity->init($this, $service);
+		$identity->init($this, array_merge($service, $options));
 		return $identity;
 	}
 

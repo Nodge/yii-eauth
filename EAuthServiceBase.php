@@ -468,7 +468,8 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 	 */
 	public function getId() {
 		$this->_fetchAttributes();
-		return $this->attributes['id'];
+		// Check attribute for existance to avoid error.
+		return isset($this->attributes['id']) ? $this->attributes['id'] : null;
 	}
 
 	/**
