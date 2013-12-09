@@ -31,9 +31,6 @@ class FacebookOAuthService extends EOAuth2Service {
 		'access_token' => 'https://graph.facebook.com/oauth/access_token',
 	);
 
-	protected $errorParam = 'error_code';
-	protected $errorDescriptionParam = 'error_message';
-
 	protected function fetchAttributes() {
 		$info = (object)$this->makeSignedRequest('https://graph.facebook.com/me');
 
