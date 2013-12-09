@@ -56,6 +56,10 @@
 	background-position: 0 -372px;
 }
 
+.auth-icon.steam {
+	background-position: 0 -406px;
+}
+
 .auth-link:hover .auth-icon i,
 .auth-link:focus .auth-icon i {
 	display: block;

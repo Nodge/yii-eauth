@@ -19,8 +19,17 @@ class SteamOpenIDService extends EOpenIDService {
     protected $name = 'steam';
     protected $title = 'Steam';
     protected $type = 'OpenID';
-    protected $jsArguments = array('popup' => array('width' => 900, 'height' => 550));
+    protected $jsArguments = array('popup' => array('width' => 990, 'height' => 615));
 
     protected $url = 'http://steamcommunity.com/openid/';
 
+    protected function fetchAttributes() {
+        if (isset($this->attributes['id'])) {
+            $urlChunks = explode('/', $this->attributes['id']);
+            if ($count = count($urlChunks)) {
+                $name = $urlChunks[$count - 1];
+                $this->attributes['name'] = $name;
+            }
+        }
+    }
 }
