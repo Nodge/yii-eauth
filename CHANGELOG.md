@@ -1,6 +1,9 @@
 Yii EAuth Change Log
 ====================
 
+### 15.12.2013
+* Added Steam Open ID service
+
 ### 08.12.2013
 * Try to automatically restore OAuth tokens from session (#76)
 * Added ability to change redirectUrl and cancelUrl through config (#77)
