@@ -41,6 +41,7 @@ The implementation of the authorization on your own server has several advantage
 
 * OpenID:
 	* Google
+	* Yahoo
 	* Steam
 	* Yandex (ru)
 * OAuth1:
@@ -116,6 +117,10 @@ The implementation of the authorization on your own server has several advantage
 				),
 				'steam' => array(
 					'class' => 'SteamOpenIDService',
+					//'realm' => '*.example.org',
+				),
+				'yahoo' => array(
+					'class' => 'YahooOpenIDService',
 					//'realm' => '*.example.org',
 				),
 				'twitter' => array(

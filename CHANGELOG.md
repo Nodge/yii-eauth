@@ -1,6 +1,9 @@
 Yii EAuth Change Log
 ====================
 
+### 20.12.2013
+* Added Yahoo Open ID service
+
 ### 15.12.2013
 * Added Steam Open ID service
 
