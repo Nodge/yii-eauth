@@ -57,6 +57,7 @@ The implementation of the authorization on your own server has several advantage
 	* Mail.ru (ru)
 	* Odnoklassniki (ru)
 	* Moi Krug(ru)
+	* Dropbox
 
 
 ### Resources
@@ -194,6 +195,12 @@ The implementation of the authorization on your own server has several advantage
 					'client_secret' => '...',
 					'title' => 'Odnokl.',
 				),
+				'dropbox' => array(
+                	// register your app here: https://www.dropbox.com/developers/apps/create
+                	'class' => 'DropboxOAuthService',
+                		'client_id' => '...',
+                		'client_secret' => '...',
+                ),
 			),
 		),
 		...
