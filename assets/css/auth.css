@@ -64,6 +64,10 @@
 	background-position: 0 -440px;
 }
 
+.auth-icon.dropbox {
+    background-position: 0 -472px;
+}
+
 .auth-link:hover .auth-icon i,
 .auth-link:focus .auth-icon i {
 	display: block;
