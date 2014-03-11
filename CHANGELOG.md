@@ -1,6 +1,12 @@
 Yii EAuth Change Log
 ====================
 
+### 11.03.2014
+* Removed CURLOPT_SSL_VERIFYPEER=0 (#82)
+
+### 13.01.2014
+* Added Dropbox OAuth service
+
 ### 20.12.2013
 * Added Yahoo Open ID service
 
