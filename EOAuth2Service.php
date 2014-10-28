@@ -211,7 +211,7 @@ abstract class EOAuth2Service extends EAuthServiceBase implements IAuthService {
 				$this->getSignedRequestFields()
 			);
 
-		$result = $this->makeRequest($url, $options, parseJson);
+		$result = $this->makeRequest($url, $options, $parseJson);
 		
 		return $result;
 	}
