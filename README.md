@@ -59,6 +59,7 @@ The implementation of the authorization on your own server has several advantage
 	* Moi Krug(ru)
 	* Dropbox
         * EVE Online
+        * Wargaming
 
 
 ### Resources
@@ -124,6 +125,9 @@ The implementation of the authorization on your own server has several advantage
 				'yahoo' => array(
 					'class' => 'YahooOpenIDService',
 					//'realm' => '*.example.org',
+				),
+                                'wargaming' => array(
+					'class' => 'WargamingOpenIDService'
 				),
 				'twitter' => array(
 					// register your app here: https://dev.twitter.com/apps/new
