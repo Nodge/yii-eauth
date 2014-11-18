@@ -1,6 +1,9 @@
 Yii EAuth Change Log
 ====================
 
+### 19.11.2014
+* Added EVE Online OAuth service
+
 ### 11.03.2014
 * Removed CURLOPT_SSL_VERIFYPEER=0 (#82)
 
