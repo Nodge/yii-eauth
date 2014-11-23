@@ -58,8 +58,8 @@ The implementation of the authorization on your own server has several advantage
 	* Odnoklassniki (ru)
 	* Moi Krug(ru)
 	* Dropbox
-        * EVE Online
-        * Wargaming
+	* EVE Online
+	* Wargaming
 
 
 ### Resources
@@ -126,7 +126,7 @@ The implementation of the authorization on your own server has several advantage
 					'class' => 'YahooOpenIDService',
 					//'realm' => '*.example.org',
 				),
-                                'wargaming' => array(
+				'wargaming' => array(
 					'class' => 'WargamingOpenIDService'
 				),
 				'twitter' => array(
@@ -201,16 +201,16 @@ The implementation of the authorization on your own server has several advantage
 					'title' => 'Odnokl.',
 				),
 				'dropbox' => array(
-                                    // register your app here: https://www.dropbox.com/developers/apps/create
-                                    'class' => 'DropboxOAuthService',
-                                    'client_id' => '...',
-                                    'client_secret' => '...',
-                                ),
-                                'eve' => array(
-                                    // register your app here: https://developers.eveonline.com/applications
-                                    'class' => 'EveOnlineOAuthService',
-                                    'client_id' => '...',
-                                    'client_secret' => '...',
+					// register your app here: https://www.dropbox.com/developers/apps/create
+					'class' => 'DropboxOAuthService',
+					'client_id' => '...',
+					'client_secret' => '...',
+				),
+				'eve' => array(
+					// register your app here: https://developers.eveonline.com/applications
+					'class' => 'EveOnlineOAuthService',
+					'client_id' => '...',
+					'client_secret' => '...',
 				),
 			),
 		),
