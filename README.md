@@ -43,6 +43,7 @@ The implementation of the authorization on your own server has several advantage
 	* Google
 	* Yahoo
 	* Steam
+	* Wargaming
 	* Yandex (ru)
 * OAuth1:
 	* Twitter
@@ -59,7 +60,6 @@ The implementation of the authorization on your own server has several advantage
 	* Moi Krug(ru)
 	* Dropbox
 	* EVE Online
-	* Wargaming
 
 
 ### Resources
