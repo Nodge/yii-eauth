@@ -21,7 +21,7 @@ class EveOnlineOAuthService extends EOAuth2Service {
     /**
      * @var string
      */
-    protected $title = 'EVE Online SSO';
+    protected $title = 'EVE Online';
 
     /**
      * @var string

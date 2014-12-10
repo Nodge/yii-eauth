@@ -68,6 +68,15 @@
     background-position: 0 -472px;
 }
 
+.auth-icon.wargaming {
+    background-position: 0 -503px;
+}
+
+.auth-icon.eve {
+    background-position: 0 -538px;
+}
+
+
 .auth-link:hover .auth-icon i,
 .auth-link:focus .auth-icon i {
 	display: block;
