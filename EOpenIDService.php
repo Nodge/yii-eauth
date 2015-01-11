@@ -24,7 +24,7 @@ abstract class EOpenIDService extends EAuthServiceBase implements IAuthService {
 	public $realm;
 
 	/**
-	 * @var EOpenID the openid library instance.
+	 * @var LightOpenID the openid library instance.
 	 */
 	private $auth;
 
@@ -53,7 +53,6 @@ abstract class EOpenIDService extends EAuthServiceBase implements IAuthService {
 	public function init($component, $options = array()) {
 		parent::init($component, $options);
 		$this->auth = Yii::app()->loid->load();
-		//$this->auth = new EOpenID();
 	}
 
 	/**
@@ -64,10 +63,12 @@ abstract class EOpenIDService extends EAuthServiceBase implements IAuthService {
 	 * @throws CHttpException
 	 */
 	public function authenticate() {
+
 		if (!empty($_REQUEST['openid_mode'])) {
 			switch ($_REQUEST['openid_mode']) {
 				case 'id_res':
 					try {
+						$this->auth->returnUrl = $this->getState('returnUrl');
 						if ($this->auth->validate()) {
 							$this->attributes['id'] = $this->auth->identity;
 
@@ -132,7 +133,7 @@ abstract class EOpenIDService extends EAuthServiceBase implements IAuthService {
 			}
 
 			$this->auth->returnUrl = Yii::app()->request->hostInfo . Yii::app()->request->url; //getting return URL
-
+			$this->setState('returnUrl', $this->auth->returnUrl);
 
 			try {
 				$url = $this->auth->authUrl();
