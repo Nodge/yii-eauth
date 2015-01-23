@@ -212,6 +212,14 @@ The implementation of the authorization on your own server has several advantage
 					'client_id' => '...',
 					'client_secret' => '...',
 				),
+				'slack' => array(
+					// register your app here: https://api.slack.com/applications/new
+					'class' => 'SlackOAuthService',
+					'client_id' => '...',
+					'client_secret' => '...',
+					'title' => 'Slack',
+				),
+
 			),
 		),
 		...

@@ -1,6 +1,9 @@
 Yii EAuth Change Log
 ====================
 
+### 23.01.2015
+* Added Slack OAuth service
+
 ### 19.11.2014
 * Added EVE Online OAuth service
 * Added Wargamin Open ID service
