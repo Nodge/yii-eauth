@@ -71,6 +71,21 @@ class EveOnlineOAuthService extends EOAuth2Service {
         $this->attributes['id']         = $info['CharacterID'];
         $this->attributes['name']       = $info['CharacterName'];
         $this->attributes['char_hash']  = $info['CharacterOwnerHash'];
+        
+        // Set full public character info
+        $data = $this->getAPIData($info['CharacterID']);
+        //
+        $this->attributes['race']           = (string)  $data->race;
+        $this->attributes['bloodline']      = (string)  $data->bloodline;
+        $this->attributes['corporationID']  = (integer) $data->corporationID;
+        $this->attributes['corporation']    = (string)  $data->corporation;
+        $this->attributes['securityStatus'] = (double)  $data->securityStatus;
+        //
+        if (isset($data->allianceID)) {
+            $this->attributes['allianceID'] = (integer) $data->allianceID;
+            $this->attributes['alliance']   = (string)  $data->alliance;
+        }
+        
     }
 
     /**
@@ -124,6 +139,18 @@ class EveOnlineOAuthService extends EOAuth2Service {
         } else {
             return null;
         }
+    }
+    
+    /**
+     * Get data from EVE API
+     * @param integer $charId
+     * @return SimpleXMLElement
+     */
+    private function getAPIData($charId) {
+        $url = 'https://api.eveonline.com/eve/CharacterInfo.xml.aspx?characterID='.(int)$charId;
+        $data = file_get_contents($url);
+        $xml = simplexml_load_string($data);
+        return $xml->result;
     }
 
 }
