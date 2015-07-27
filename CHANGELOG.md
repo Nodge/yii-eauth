@@ -1,7 +1,7 @@
 Yii EAuth Change Log
 ====================
 
-### 23.01.2015
+### 23.01.2015 (v1.0.0)
 * Added Slack OAuth service
 
 ### 19.11.2014
