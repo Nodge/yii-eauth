@@ -330,10 +330,22 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 			}
 		}
 
-		if (isset($options['data'])) {
-			curl_setopt($ch, CURLOPT_POST, 1);
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $options['data']);
-		}
+        if (isset($options['data'])) {
+            if (is_array($options['data'])) {
+                $postData = array();
+
+                foreach ($options['data'] as $key => $value) {
+                    $postData[] = $key . '=' . urlencode($value);
+                }
+
+                $postData = implode('&', $postData);
+            } else {
+                $postData = $options['data'];
+            }
+
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+        }
 
 		curl_setopt($ch, CURLOPT_URL, $url);
 		return $ch;
