@@ -332,13 +332,7 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 
 		if (isset($options['data'])) {
 			if (is_array($options['data'])) {
-				$postData = array();
-
-				foreach ($options['data'] as $key => $value) {
-					$postData[] = $key . '=' . urlencode($value);
-				}
-
-				$postData = implode('&', $postData);
+				$postData = http_build_query($options['data']);
 			} else {
 				$postData = $options['data'];
 			}
