@@ -1,7 +1,7 @@
 Yii EAuth Change Log
 ====================
 
-### dev
+### 03.01.2016 (v1.1.0)
 * Use the latest Graph Api v2.5 for Facebook (#107)
 
 ### 23.01.2015 (v1.0.0)
