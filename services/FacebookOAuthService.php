@@ -32,7 +32,15 @@ class FacebookOAuthService extends EOAuth2Service {
 	);
 
 	protected function fetchAttributes() {
-		$info = (object)$this->makeSignedRequest('https://graph.facebook.com/me');
+		$info = (object)$this->makeSignedRequest('https://graph.facebook.com/v2.5/me', array(
+			'query' => array(
+				'fields' => join(',', array(
+					'id',
+					'name',
+					'link',
+				))
+			)
+		));
 
 		$this->attributes['id'] = $info->id;
 		$this->attributes['name'] = $info->name;

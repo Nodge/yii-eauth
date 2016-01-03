@@ -1,6 +1,9 @@
 Yii EAuth Change Log
 ====================
 
+### dev
+* Use the latest Graph Api v2.5 for Facebook (#107)
+
 ### 23.01.2015 (v1.0.0)
 * Added Slack OAuth service
 
