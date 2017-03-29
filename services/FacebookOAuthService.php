@@ -70,8 +70,7 @@ class FacebookOAuthService extends EOAuth2Service {
 
 	protected function getAccessToken($code) {
 		$response = $this->makeRequest($this->getTokenUrl($code), array(), false);
-		parse_str($response, $result);
-		return $result;
+		return json_decode($response, true);
 	}
 
 	/**
