@@ -80,8 +80,16 @@ class FacebookOAuthService extends EOAuth2Service {
 	 * @param array $token access token array.
 	 */
 	protected function saveAccessToken($token) {
+		if (is_array($token)) {
+			if (!array_key_exists('expires', $token)) {
+				$json = array_keys($token)[0];
+				$token = json_decode($json, 1);
+			}
+		}
+		$expires = isset($token['expires']) ? $token['expires'] : $token['expires_in'];
+
 		$this->setState('auth_token', $token['access_token']);
-		$this->setState('expires', isset($token['expires']) ? time() + (int)$token['expires'] - 60 : 0);
+		$this->setState('expires', $expires ? time() + (int)$expires - 60 : 0);
 		$this->access_token = $token['access_token'];
 	}
 
