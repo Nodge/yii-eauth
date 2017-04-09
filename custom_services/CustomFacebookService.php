@@ -11,7 +11,7 @@ class CustomFacebookService extends FacebookOAuthService {
 	 * @see FacebookOAuthService::fetchAttributes()
 	 */
 	protected function fetchAttributes() {
-		$this->attributes = (array)$this->makeSignedRequest('https://graph.facebook.com/v2.5/me', array(
+		$this->attributes = (array)$this->makeSignedRequest('https://graph.facebook.com/v2.8/me', array(
 			'query' => array(
 				'fields' => join(',', array(
 					'id',

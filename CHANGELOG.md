@@ -1,6 +1,10 @@
 Yii EAuth Change Log
 ====================
 
+### 10.04.2017 (v1.2.0)
+* Fix parsing access token in Facebook OAuth service (#109 #110 #111)
+* Use the latest Graph Api v2.8 for Facebook 
+
 ### 03.01.2016 (v1.1.0)
 * Use the latest Graph Api v2.5 for Facebook (#107)
 
