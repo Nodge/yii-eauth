@@ -56,7 +56,7 @@ abstract class EOAuthService extends EAuthServiceBase implements IAuthService {
 	public function init($component, $options = array()) {
 		parent::init($component, $options);
 
-		$this->auth = new EOAuthUserIdentity(array(
+		$this->auth = new EAuthUserIdentity(array(
 			'scope' => $this->scope,
 			'key' => $this->key,
 			'secret' => $this->secret,
