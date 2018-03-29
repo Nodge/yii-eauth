@@ -14,7 +14,7 @@ class CustomVKontakteService extends VKontakteOAuthService {
 	// protected $scope = 'friends';
 
 	protected function fetchAttributes() {
-		$info = (array)$this->makeSignedRequest('https://api.vk.com/method/users.get.json', array(
+		$info = (array)$this->makeSignedRequest('https://api.vk.com/method/users.get.json?v=' . $this->version, array(
 			'query' => array(
 				'uids' => $this->uid,
 				//'fields' => '', // uid, first_name and last_name is always available
