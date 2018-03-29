@@ -31,10 +31,15 @@ class VKontakteOAuthService extends EOAuth2Service {
 		'access_token' => 'https://api.vk.com/oauth/access_token',
 	);
 
+    /**
+     * @var string
+     */
+	protected $version;
+
 	protected $uid = null;
 
 	protected function fetchAttributes() {
-		$info = (array)$this->makeSignedRequest('https://api.vk.com/method/users.get.json', array(
+		$info = (array)$this->makeSignedRequest('https://api.vk.com/method/users.get.json?v=' . $this->version, array(
 			'query' => array(
 				'uids' => $this->uid,
 				'fields' => '', // uid, first_name and last_name is always available
